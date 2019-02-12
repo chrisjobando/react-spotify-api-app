@@ -78,6 +78,7 @@ class App extends Component {
   componentDidMount() {
     let parsed = queryString.parse(window.location.search);
     let accessToken = parsed.access_token;
+    if (!accessToken) return;
 
     fetch('https://api.spotify.com/v1/me', {
       headers: {'Authorization': 'Bearer ' + accessToken}
@@ -123,10 +124,13 @@ class App extends Component {
             {playlistsToRender.map(playlist =>
               <Playlist playlist={playlist}/>
             )}
-          </div> : <button onClick={()=>window.location='http://localhost:8888/login'}
-            style={{
-              padding: '20px', 'font-size': '50px', 'margin-top': '20px'
-            }}>Sign in with Spotify</button>
+          </div>
+          : <button onClick={() => {
+            window.location = window.location.href.includes('localhost')
+              ? 'http://localhost:8888/login'
+              : 'http://obando-spotify-stats.herokuapp.com/login'}
+          }
+          style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
       </div>
     );
