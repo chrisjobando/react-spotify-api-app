@@ -1,43 +1,11 @@
 import React, { Component } from 'react';
 import './App.sass';
-import { timingSafeEqual } from 'crypto';
+import queryString from 'query-string';
 
 let textColor = '#fff';
 let defaultStyle= {
   color: textColor
 };
-let tempServerData = {
-  user: {
-    name: 'Chris',
-    playlists: [
-      {
-        name: 'My Favorites',
-        songs: [{name: 'A', duration: 1345},
-                {name: 'B', duration: 1236},
-                {name: 'C', duration: 7000}]
-      },
-      {
-        name: 'Discover Weekly',
-        songs: [{name: 'D', duration: 1354},
-                {name: 'E', duration: 1692},
-                {name: 'F', duration: 8200}]
-      },
-      {
-        name: 'Another Playlist',
-        songs: [{name: 'G', duration: 3248},
-                {name: 'H', duration: 8123},
-                {name: 'I', duration: 3182}]
-      },
-      {
-        name: 'Sure',
-        songs: [{name: 'J', duration: 9372},
-                {name: 'K', duration: 1974},
-                {name: 'L', duration: 1293}]
-      }
-    ]
-  }
-};
-
 
 class PlaylistCounter extends Component {
   render () {
@@ -86,7 +54,9 @@ class Playlist extends Component {
     let playlist = this.props.playlist;
     return(
       <div style={{...defaultStyle, display: 'inline-block', width: '25%'}}>
-        <img/>
+        <img src={playlist.imageUrl}
+            style={{width: '80%'}}
+            alt='Album Cover'/>
         <h3>{playlist.name}</h3>
         <ul>
           {playlist.songs.map(song =>
@@ -106,22 +76,46 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({serverData: tempServerData});
-    }, 1000);
+    let parsed = queryString.parse(window.location.search);
+    let accessToken = parsed.access_token;
+
+    fetch('https://api.spotify.com/v1/me', {
+      headers: {'Authorization': 'Bearer ' + accessToken}
+    }).then(response => response.json())
+      .then(data => this.setState({
+        user: {
+          name: data.display_name
+        }
+      }));
+  
+    fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: {'Authorization': 'Bearer ' + accessToken}
+    }).then(response => response.json())
+      .then(data => this.setState({
+        playlists: data.items.map(item => {
+          console.log(data.items);
+          return {
+            name: item.name,
+            imageUrl: item.images[0].url,
+            songs: []
+          }
+        })
+      }));
   }
   render() {
-    let playlistsToRender = this.state.serverData.user ? this.state.serverData.user.playlists
-      .filter(playlist =>
-      playlist.name.toLowerCase().includes(
-      this.state.filterString.toLowerCase())
-    ) : [];
+    let playlistsToRender =
+      this.state.user &&
+      this.state.playlists
+        ? this.state.playlists.filter(playlist =>
+          playlist.name.toLowerCase().includes(
+            this.state.filterString.toLowerCase()))
+        : [];
     return (
       <div className="App">
-        {this.state.serverData.user ?
+        {this.state.user ?
           <div>
             <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-              {this.state.serverData.user.name}'s Playlists
+              {this.state.user.name}'s Playlists
             </h1>
             <PlaylistCounter playlists={playlistsToRender} />
             <HoursCounter playlists={playlistsToRender} />
@@ -129,7 +123,10 @@ class App extends Component {
             {playlistsToRender.map(playlist =>
               <Playlist playlist={playlist}/>
             )}
-          </div> : <h1 style={defaultStyle}>Loading...</h1>
+          </div> : <button onClick={()=>window.location='http://localhost:8888/login'}
+            style={{
+              padding: '20px', 'font-size': '50px', 'margin-top': '20px'
+            }}>Sign in with Spotify</button>
         }
       </div>
     );
