@@ -128,7 +128,7 @@ class App extends Component {
           : <button onClick={() => {
             window.location = window.location.href.includes('localhost')
               ? 'http://localhost:8888/login'
-              : 'http://obando-spotify-stats.herokuapp.com/login'}
+              : 'http://obando-spotify-backend.herokuapp.com/login'}
           }
           style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
         }
