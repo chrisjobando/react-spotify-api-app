@@ -1,2 +1,71 @@
+body
+  color: #fff
+  font-family: 'Consolas'
+
 .App
   text-align: center
+
+.login-button
+  margin-top: 50vh
+  background: rgba(138, 201, 38, 1)
+  color: #fff
+  border: none
+  border-radius: 0.5rem
+  position: relative
+  height: 60px
+  font-weight: 600
+  font-size: 1.6em
+  cursor: pointer
+  transition: 800ms ease all
+  outline: none
+  &:hover
+    background: #fff
+    color: rgba(138, 201, 38, 1)
+  &:before, &:after
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    height: 2px
+    width: 0
+    background: rgba(138, 201, 38, 1)
+    transition: 400ms ease all
+  &:after
+    right: inherit
+    top: inherit
+    left: 0
+    bottom: 0
+  &:hover:before, &:hover:after
+    width: 100%
+    transition: 800ms ease all
+
+img
+  border-radius: 0.5rem
+
+.profilePic
+  object-fit: cover
+  border-radius: 50%
+  margin-top: 30px
+  height: 200px
+  width: 200px
+
+h1
+  margin: 0
+  margin-top: 10px
+
+h2
+  margin-top: 0
+
+.profile-info
+  display: flex
+  justify-content: space-around
+  width: 60%
+  margin: 0 auto
+
+a
+  color: rgba(255, 202, 58, 1)
+  text-decoration: none
+
+i
+  font-size: 18px
+  margin-right: 10px

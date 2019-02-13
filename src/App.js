@@ -2,70 +2,30 @@ import React, { Component } from 'react';
 import './App.sass';
 import queryString from 'query-string';
 
-let textColor = '#fff';
-let defaultStyle= {
-  color: textColor
-};
+// Components
+import Product from './components/Product';
+import FollowerCounter from './components/FollowerCounter';
+import Filter from './components/Filter';
+import Playlist from './components/Playlist';
+import PlaylistCounter from './components/PlaylistCounter';
 
-class PlaylistCounter extends Component {
-  render () {
-    return(
-     <div style={{...defaultStyle, width: '40%', display: 'inline-block'}}>
-       <h2>
-        {this.props.playlists.length} playlists
-       </h2>
-     </div>
-    );
-  }
-}
-
-class HoursCounter extends Component {
-  render () {
-    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
-      return songs.concat(eachPlaylist.songs);
-    }, []);
-    let totalDuration = allSongs.reduce((sum, eachSong) => {
-      return sum + eachSong.duration;
-    }, 0);
-    return(
-     <div style={{...defaultStyle, width: '40%', display: 'inline-block'}}>
-       <h2>
-        {Math.round(totalDuration/60)} hours
-       </h2>
-     </div>
-    );
-  }
-}
-
-class Filter extends Component {
-  render() {
-    return(
-      <div style={defaultStyle}>
-        <img/>
-        <input type="text" onKeyUp={event =>
-          this.props.onTextChange(event.target.value)}/>
-      </div>
-    );
-  }
-}
-
-class Playlist extends Component {
-  render() {
-    let playlist = this.props.playlist;
-    return(
-      <div style={{...defaultStyle, display: 'inline-block', width: '25%'}}>
-        <img src={playlist.imageUrl}
-            style={{width: '80%'}}
-            alt='Album Cover'/>
-        <h3>{playlist.name}</h3>
-        <ul>
-          {playlist.songs.map(song =>
-            <li>{song.name}</li>)}
-        </ul>
-      </div>
-    );
-  }
-}
+// class HoursCounter extends Component {
+//   render () {
+//     let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
+//       return songs.concat(eachPlaylist.songs);
+//     }, []);
+//     let totalDuration = allSongs.reduce((sum, eachSong) => {
+//       return sum + eachSong.duration;
+//     }, 0);
+//     return(
+//      <div style={{...defaultStyle, width: '40%', display: 'inline-block'}}>
+//        <h2>
+//         {Math.round(totalDuration/60)} hours
+//        </h2>
+//      </div>
+//     );
+//   }
+// }
 
 class App extends Component {
   constructor() {
@@ -85,10 +45,19 @@ class App extends Component {
     }).then(response => response.json())
       .then(data => this.setState({
         user: {
-          name: data.display_name
+          name: data.display_name,
+          pic: data.images[0].url,
+          followers: data.followers.total,
+          accountType: data.product.charAt(0).toUpperCase() + data.product.slice(1),
+          url: data.external_urls.spotify
         }
       }));
-  
+
+    fetch('https://api.spotify.com/v1/me/top/artists', {
+      headers: {'Authorization': 'Bearer ' + accessToken}
+    }).then(response => response.json())
+      .then(artistData => console.log(artistData));
+
     fetch('https://api.spotify.com/v1/me/playlists', {
       headers: {'Authorization': 'Bearer ' + accessToken}
     }).then(response => response.json())
@@ -103,14 +72,13 @@ class App extends Component {
           return trackDataPromise;
         });
         let allTracksDataPromises =
-         Promise.all(trackDataPromises)
+         Promise.all(trackDataPromises);
         let playlistsPromise = allTracksDataPromises.then(trackDatas => {
           trackDatas.forEach((trackData, i) => {
             playlists[i].trackDatas = trackData.items
               .map(item => item.track)
               .map(trackData => ({
-                name: trackData.name,
-                duration: trackData.duration_ms / 1000
+                name: trackData.name.counterDisplay
               }))
           })
           return playlists;
@@ -121,8 +89,7 @@ class App extends Component {
         playlists: playlists.map(item => {
           return {
             name: item.name,
-            imageUrl: item.images[0].url,
-            songs: item.trackDatas.slice(0,3)
+            imageUrl: item.images[0].url
           }
         })
       }));
@@ -134,20 +101,29 @@ class App extends Component {
         ? this.state.playlists.filter(playlist => {
           let matchesPlaylist = playlist.name.toLowerCase().includes(
             this.state.filterString.toLowerCase());
-          let matchesSong = playlist.songs.find(song => song.name.toLowerCase()
-            .includes(this.state.filterString.toLowerCase()));
-          return matchesPlaylist || matchesSong;
+          return matchesPlaylist;
         }) : [];
     return (
       <div className="App">
         {this.state.user ?
           <div>
-            <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-              {this.state.user.name}'s Playlists
+            <img src={this.state.user.pic}
+              alt='Profile Pic' className='profilePic'/>
+            <h1 style={{fontSize: '54px'}}>
+              {this.state.user.name}
             </h1>
-            <PlaylistCounter playlists={playlistsToRender} />
-            <HoursCounter playlists={playlistsToRender} />
-            <Filter onTextChange={text => this.setState({filterString: text})}/>
+            <Product accountType={this.state.user.accountType} />
+            <h2><a href={this.state.user.url}
+                  target='_blank'
+                  rel='noopener noreferrer'>
+              Link to Profile
+            </a></h2>
+            <div className='profile-info'>
+              <FollowerCounter followers={this.state.user.followers} />
+              <PlaylistCounter playlists={playlistsToRender} />
+            </div>
+            <Filter onTextChange={text =>
+              this.setState({filterString: text})}/>
             {playlistsToRender.map(playlist =>
               <Playlist playlist={playlist}/>
             )}
@@ -157,7 +133,7 @@ class App extends Component {
               ? 'http://localhost:8888/login'
               : 'http://obando-spotify-backend.herokuapp.com/login'}
           }
-          style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button>
+          className='login-button'>Sign in with Spotify</button>
         }
       </div>
     );
