@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+// General App Styling
 import './App.sass';
 
 /**
@@ -8,6 +10,7 @@ import './App.sass';
  */
 import SpotifyWebApi from 'spotify-web-api-js';
 
+// npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
 
 // Components
@@ -56,11 +59,21 @@ class App extends Component {
     return parsed;
   }
 
+  /**
+   * @author: Christopher Obando
+   * Runs these functions after the data loads in the constructor
+   * This runs only once as opposed to code in the render function below
+   */
   componentDidMount() {
     this.getMyInfo();
     this.getMyPlaylists();
   }
 
+  /**
+   * @author: Christopher Obando
+   * @param str
+   * Capitalizes the first letter of any string passed in parameter
+   */
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
