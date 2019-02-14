@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styling/PlaylistCounter.sass';
+import '../../styling/PlaylistCounter.sass';
 
 
 class PlaylistCounter extends Component {
@@ -8,7 +8,7 @@ class PlaylistCounter extends Component {
         <div className='counterDisplay'>
             <h2>
                 <i className="fas fa-music"></i>
-                {this.props.playlists.length} playlists
+                {this.props.numPlaylists} playlists
             </h2>
         </div>
         );

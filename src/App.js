@@ -1,102 +1,100 @@
 import React, { Component } from 'react';
 import './App.sass';
+
+/**
+ * Public Spotify Web API Wrapper
+ * Includes helper functions for all Spotify endpoints
+ * Source: https://github.com/JMPerez/spotify-web-api-js
+ */
+import SpotifyWebApi from 'spotify-web-api-js';
+
 import queryString from 'query-string';
 
 // Components
+import Login from './components/Login';
 import Product from './components/Product';
 import FollowerCounter from './components/FollowerCounter';
+import Playlist from './components/Playlist/Playlist';
+import PlaylistCounter from './components/Playlist/PlaylistCounter';
 import Filter from './components/Filter';
-import Playlist from './components/Playlist';
-import PlaylistCounter from './components/PlaylistCounter';
 
-// class HoursCounter extends Component {
-//   render () {
-//     let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
-//       return songs.concat(eachPlaylist.songs);
-//     }, []);
-//     let totalDuration = allSongs.reduce((sum, eachSong) => {
-//       return sum + eachSong.duration;
-//     }, 0);
-//     return(
-//      <div style={{...defaultStyle, width: '40%', display: 'inline-block'}}>
-//        <h2>
-//         {Math.round(totalDuration/60)} hours
-//        </h2>
-//      </div>
-//     );
-//   }
-// }
+// Instantiates the wrapper
+const spotify = new SpotifyWebApi();
 
 class App extends Component {
+
+  /**
+   * @author: Christopher Obando
+   * Constructor for the App, gets the params from the query using a helper function,
+   * pulls the access token from the dictionary returned. If token exists, sets it in
+   * the wrapper. Sets state to logged in if token exists, and instantiates tracks list.
+   */
   constructor() {
     super();
+    const params = this.getHashParams();
+    const token = params.access_token;
+    if (token) {
+      spotify.setAccessToken(token);
+    }
     this.state = {
-      serverData : {},
-      filterString: ''
-    };
+      loggedIn: token ? true : false,
+      user: "",
+      playlists: "",
+      tracks: [],
+      filterString: ""
+    }
   }
-  componentDidMount() {
+
+  /**
+   * @author: Christopher Obando
+   * From: https://www.npmjs.com/package/query-string
+   * Obtains parameters from the URL
+   * @return Object with all querys
+  */
+  getHashParams() {
     let parsed = queryString.parse(window.location.search);
-    let accessToken = parsed.access_token;
-    if (!accessToken) return;
-
-    fetch('https://api.spotify.com/v1/me', {
-      headers: {'Authorization': 'Bearer ' + accessToken}
-    }).then(response => response.json())
-      .then(data => this.setState({
-        user: {
-          name: data.display_name,
-          pic: data.images[0].url,
-          followers: data.followers.total,
-          accountType: data.product.charAt(0).toUpperCase() + data.product.slice(1),
-          url: data.external_urls.spotify
-        }
-      }));
-
-    fetch('https://api.spotify.com/v1/me/top/artists', {
-      headers: {'Authorization': 'Bearer ' + accessToken}
-    }).then(response => response.json())
-      .then(artistData => console.log(artistData));
-
-    fetch('https://api.spotify.com/v1/me/playlists', {
-      headers: {'Authorization': 'Bearer ' + accessToken}
-    }).then(response => response.json())
-      .then(playlistData => {
-        let playlists = playlistData.items;
-        let trackDataPromises = playlists.map(playlist => {
-          let responsePromise = fetch(playlist.tracks.href, {
-            headers: {'Authorization': 'Bearer ' + accessToken}
-          })
-          let trackDataPromise = responsePromise
-            .then(response => response.json())
-          return trackDataPromise;
-        });
-        let allTracksDataPromises =
-         Promise.all(trackDataPromises);
-        let playlistsPromise = allTracksDataPromises.then(trackDatas => {
-          trackDatas.forEach((trackData, i) => {
-            playlists[i].trackDatas = trackData.items
-              .map(item => item.track)
-              .map(trackData => ({
-                name: trackData.name.counterDisplay
-              }))
-          })
-          return playlists;
-        });
-        return playlistsPromise;        
-      })
-      .then(playlists => this.setState({
-        playlists: playlists.map(item => {
-          return {
-            name: item.name,
-            imageUrl: item.images[0].url
-          }
-        })
-      }));
+    return parsed;
   }
+
+  componentDidMount() {
+    this.getMyInfo();
+    this.getMyPlaylists();
+  }
+
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  /**
+ * @author: Christopher Obando
+ * Uses the getMe() method from spotify wrapper, returns a promise that
+ *  I assign to the user key in the state.
+ */
+  getMyInfo() {
+    spotify.getMe().then((result) => {
+      this.setState({
+        user: result,
+      });
+    });
+  }
+
+  /**
+   * @author: Christopher Obando
+   * Uses the getUserPlaylist() method from spotify wrapper, returns an
+   * object containing (50) of the current user's playlists as an array
+   */
+  getMyPlaylists() {
+    spotify.getUserPlaylists({limit: 50}).then((result) => {
+      this.setState({
+        playlists: result.items,
+      });
+      console.log(this.state);
+    });
+  }
+
   render() {
     let playlistsToRender =
-      this.state.user &&
+      this.state.loggedIn && this.state.user &&
       this.state.playlists
         ? this.state.playlists.filter(playlist => {
           let matchesPlaylist = playlist.name.toLowerCase().includes(
@@ -105,39 +103,30 @@ class App extends Component {
         }) : [];
     return (
       <div className="App">
-        {this.state.user ?
+        <Login loggedIn={this.state.loggedIn}/>
+        {this.state.loggedIn && this.state.user
+            && this.state.playlists &&
           <div>
-            <img src={this.state.user.pic}
-              alt='Profile Pic' className='profilePic'/>
+            <img src={this.state.user.images[0].url}
+                alt='Profile Pic' className='profilePic'/>
             <h1 style={{fontSize: '54px'}}>
-              {this.state.user.name}
+              {this.state.user.display_name}
             </h1>
-            <Product accountType={this.state.user.accountType} />
-            <h2><a href={this.state.user.url}
+            <Product accountType={this.capitalize(this.state.user.product)} />
+            <h2><a href={this.state.user.external_urls.spotify}
                   target='_blank'
                   rel='noopener noreferrer'>
-              Link to Profile
-            </a></h2>
+              Link to Profile</a></h2>
             <div className='profile-info'>
-              <FollowerCounter followers={this.state.user.followers} />
-              <PlaylistCounter playlists={playlistsToRender} />
+              <FollowerCounter followers={this.state.user.followers.total} />
+              <PlaylistCounter numPlaylists={this.state.playlists.length} />
             </div>
-            <Filter onTextChange={text =>
-              this.setState({filterString: text})}/>
+            <Filter onTextChange={text => this.setState({filterString: text})}/>
             {playlistsToRender.map(playlist =>
-              <Playlist playlist={playlist}/>
-            )}
+              <Playlist playlist={playlist}/>)}
           </div>
-          : <button onClick={() => {
-            window.location = window.location.href.includes('localhost')
-              ? 'http://localhost:8888/login'
-              : 'http://obando-spotify-backend.herokuapp.com/login'}
-          }
-          className='login-button'>Sign in with Spotify</button>
         }
       </div>
-    );
+      );
   }
-}
-
-export default App;
+} export default App;
