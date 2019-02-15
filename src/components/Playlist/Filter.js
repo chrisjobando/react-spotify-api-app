@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styling/Filter.sass';
+import '../../styling/Filter.sass';
 
 
 class Filter extends Component {

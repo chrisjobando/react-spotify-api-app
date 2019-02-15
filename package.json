@@ -6,7 +6,10 @@
     "node-sass": "^4.11.0",
     "query-string": "^6.2.0",
     "react": "^16.8.1",
+    "react-awesome-button": "^6.0.0",
     "react-dom": "^16.8.1",
+    "react-fontawesome": "^1.6.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "spotify-web-api-js": "^1.2.0"
   },

@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Route from 'react-router-dom/Route';
 
 // General App Styling
 import './App.sass';
@@ -17,9 +19,9 @@ import queryString from 'query-string';
 import Login from './components/Login';
 import Product from './components/Product';
 import FollowerCounter from './components/FollowerCounter';
-import Playlist from './components/Playlist/Playlist';
 import PlaylistCounter from './components/Playlist/PlaylistCounter';
-import Filter from './components/Filter';
+import Filter from './components/Playlist/Filter';
+import PlaylistTab from './components/PlaylistTab';
 
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
@@ -106,40 +108,37 @@ class App extends Component {
   }
 
   render() {
-    let playlistsToRender =
-      this.state.loggedIn && this.state.user &&
-      this.state.playlists
-        ? this.state.playlists.filter(playlist => {
-          let matchesPlaylist = playlist.name.toLowerCase().includes(
-            this.state.filterString.toLowerCase());
-          return matchesPlaylist;
-        }) : [];
     return (
-      <div className="App">
-        <Login loggedIn={this.state.loggedIn}/>
-        {this.state.loggedIn && this.state.user
-            && this.state.playlists &&
-          <div>
-            <img src={this.state.user.images[0].url}
-                alt='Profile Pic' className='profilePic'/>
-            <h1 style={{fontSize: '54px'}}>
-              {this.state.user.display_name}
-            </h1>
-            <Product accountType={this.capitalize(this.state.user.product)} />
-            <h2><a href={this.state.user.external_urls.spotify}
-                  target='_blank'
-                  rel='noopener noreferrer'>
-              Link to Profile</a></h2>
-            <div className='profile-info'>
-              <FollowerCounter followers={this.state.user.followers.total} />
-              <PlaylistCounter numPlaylists={this.state.playlists.length} />
+      <Router>
+        <div className="App">
+          <Login loggedIn={this.state.loggedIn}/>
+          {this.state.loggedIn && this.state.user
+              && this.state.playlists &&
+            <div>
+              <img src={this.state.user.images[0].url}
+                  alt='Profile Pic' className='profilePic'/>
+              <h1 style={{fontSize: '54px'}}>
+                {this.state.user.display_name}
+              </h1>
+              <Product accountType={this.capitalize(this.state.user.product)} />
+              <h2><a href={this.state.user.external_urls.spotify}
+                    target='_blank'
+                    rel='noopener noreferrer'>
+                Link to Profile</a></h2>
+              <div className='profile-info'>
+                <FollowerCounter followers={this.state.user.followers.total} />
+                <PlaylistCounter numPlaylists={this.state.playlists.length} />
+              </div>
+
+              <Filter onTextChange={text => this.setState({filterString: text})}/>
+
+              <Route path="/playlists" render={() => {
+                return (<PlaylistTab state={this.state}/>);
+              }}/>
             </div>
-            <Filter onTextChange={text => this.setState({filterString: text})}/>
-            {playlistsToRender.map(playlist =>
-              <Playlist playlist={playlist}/>)}
-          </div>
-        }
-      </div>
-      );
+          }
+        </div>
+      </Router>
+    );
   }
 } export default App;
