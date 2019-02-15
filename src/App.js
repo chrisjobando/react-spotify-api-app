@@ -15,15 +15,14 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import queryString from 'query-string';
 
 // Components
+import Header from './components/Header';
 import Login from './components/Login';
-import Product from './components/Product';
-import FollowerCounter from './components/FollowerCounter';
-import PlaylistCounter from './components/Playlist/PlaylistCounter';
 import Filter from './components/Filter';
 
 // Tabs
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
+import TopTab from './components/TopTab';
 
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
@@ -48,8 +47,7 @@ class App extends Component {
       user: "",
       playlists: "",
       tracks: [],
-      filterString: "",
-      tab: "HomeTab"
+      filterString: ""
     }
   }
 
@@ -72,15 +70,7 @@ class App extends Component {
   componentDidMount() {
     this.getMyInfo();
     this.getMyPlaylists();
-  }
-
-  /**
-   * @author: Christopher Obando
-   * @param str
-   * Capitalizes the first letter of any string passed in parameter
-   */
-  capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    this.getMyTopTracks();
   }
 
   /**
@@ -109,59 +99,48 @@ class App extends Component {
     });
   }
 
+  getMyTopTracks() {
+    spotify.getMyTopTracks({limit: 10, time_range: 'medium_term'})
+      .then((result) => {
+        console.log(result);
+        this.setState({
+          tracks: result.items
+        });
+        console.log(this.state.tracks);
+      });
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
           <Login loggedIn={this.state.loggedIn}/>
           {this.state.loggedIn && this.state.user
-              && this.state.playlists &&
+              && this.state.playlists && this.state.tracks &&
             <div>
+              {/* App Navigation */}
               <nav>
                 <ul>
-                  {/* App Route */}
                   <li><NavLink to='/' exact activeClassName='active'
-                  onClick={() => {
-                    this.setState({
-                      tab: "HomeTab"
-                    });
-                  }} className='switch-button'>Home</NavLink></li>
+                    className='switch-button'>Home</NavLink></li>
                   <li><NavLink to='/playlists' activeClassName='active'
-                  onClick={() => {
-                    this.setState({
-                      tab: "PlaylistTab"
-                    });
-                  }} className='switch-button'>My Playlists</NavLink></li>
+                    className='switch-button'>My Playlists</NavLink></li>
+                  <li><NavLink to='/top' activeClassName='active'
+                    onClick={() => this.getMyTopTracks()}
+                    className='switch-button'>My Stats</NavLink></li>
                 </ul>
               </nav>
 
               {/* Header, doesn't change */}
-              <header>
-                <img src={this.state.user.images[0].url}
-                    alt='Profile Pic' className='profilePic'/>
-                <h1 style={{fontSize: '54px'}}>
-                  {this.state.user.display_name}
-                </h1>
-                <Product accountType={this.capitalize(this.state.user.product)} />
-                <h2><a href={this.state.user.external_urls.spotify}
-                      target='_blank'
-                      rel='noopener noreferrer'>
-                  Link to Profile</a></h2>
-                <br/>
-                <div className='profile-info'>
-                  <FollowerCounter followers={this.state.user.followers.total} />
-                  <PlaylistCounter numPlaylists={this.state.playlists.length} />
-                </div>
-                <br/>
-              </header>
+              <Header state={this.state}/>
 
               {/* App Components */}
-              { this.state.tab !=="HomeTab" &&
-                <Filter onTextChange={text => this.setState({filterString: text})}/>}
-              
-              {/* Route */}
+              <Filter onTextChange={text => this.setState({filterString: text})}/>
+
+              {/* Routes */}
               <Route exact path="/" render={(prop) => (<HomeTab {...prop} state={this.state}/>)}/>
               <Route path="/playlists" render={(prop) => (<PlaylistTab {...prop} state={this.state}/>)}/>
+              <Route path="/top" render={(prop) => (<TopTab {...prop} state={this.state}/>)}/>
             </div>
           }
         </div>
