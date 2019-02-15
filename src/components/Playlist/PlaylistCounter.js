@@ -7,7 +7,7 @@ class PlaylistCounter extends Component {
         return(
         <div className='counterDisplay'>
             <h2>
-                <FontAwesome name='music' size='1x'style={{marginRight: '10px'}} />
+                <FontAwesome name='music' style={{marginRight: '10px'}} />
                 {this.props.numPlaylists} playlists
             </h2>
         </div>

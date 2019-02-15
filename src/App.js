@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 
 // General App Styling
 import './App.sass';
@@ -18,7 +19,7 @@ import Login from './components/Login';
 import Product from './components/Product';
 import FollowerCounter from './components/FollowerCounter';
 import PlaylistCounter from './components/Playlist/PlaylistCounter';
-import Filter from './components/Playlist/Filter';
+import Filter from './components/Filter';
 
 // Tabs
 import HomeTab from './components/HomeTab';
@@ -105,49 +106,66 @@ class App extends Component {
       this.setState({
         playlists: result.items,
       });
-      console.log(this.state);
     });
   }
 
   render() {
     return (
-      <div className="App">
-        <Login loggedIn={this.state.loggedIn}/>
-        {this.state.loggedIn && this.state.user
-            && this.state.playlists &&
-          <div>
-            <img src={this.state.user.images[0].url}
-                alt='Profile Pic' className='profilePic'/>
-            <h1 style={{fontSize: '54px'}}>
-              {this.state.user.display_name}
-            </h1>
-            <Product accountType={this.capitalize(this.state.user.product)} />
-            <h2><a href={this.state.user.external_urls.spotify}
-                  target='_blank'
-                  rel='noopener noreferrer'>
-              Link to Profile</a></h2>
-            <br/>
-            <div className='profile-info'>
-              <FollowerCounter followers={this.state.user.followers.total} />
-              <PlaylistCounter numPlaylists={this.state.playlists.length} />
+      <Router>
+        <div className="App">
+          <Login loggedIn={this.state.loggedIn}/>
+          {this.state.loggedIn && this.state.user
+              && this.state.playlists &&
+            <div>
+              <nav>
+                <ul>
+                  {/* App Route */}
+                  <li><NavLink to='/' exact activeClassName='active'
+                  onClick={() => {
+                    this.setState({
+                      tab: "HomeTab"
+                    });
+                  }} className='switch-button'>Home</NavLink></li>
+                  <li><NavLink to='/playlists' activeClassName='active'
+                  onClick={() => {
+                    this.setState({
+                      tab: "PlaylistTab"
+                    });
+                  }} className='switch-button'>My Playlists</NavLink></li>
+                </ul>
+              </nav>
+
+              {/* Header, doesn't change */}
+              <header>
+                <img src={this.state.user.images[0].url}
+                    alt='Profile Pic' className='profilePic'/>
+                <h1 style={{fontSize: '54px'}}>
+                  {this.state.user.display_name}
+                </h1>
+                <Product accountType={this.capitalize(this.state.user.product)} />
+                <h2><a href={this.state.user.external_urls.spotify}
+                      target='_blank'
+                      rel='noopener noreferrer'>
+                  Link to Profile</a></h2>
+                <br/>
+                <div className='profile-info'>
+                  <FollowerCounter followers={this.state.user.followers.total} />
+                  <PlaylistCounter numPlaylists={this.state.playlists.length} />
+                </div>
+                <br/>
+              </header>
+
+              {/* App Components */}
+              { this.state.tab !=="HomeTab" &&
+                <Filter onTextChange={text => this.setState({filterString: text})}/>}
+              
+              {/* Route */}
+              <Route exact path="/" render={(prop) => (<HomeTab {...prop} state={this.state}/>)}/>
+              <Route path="/playlists" render={(prop) => (<PlaylistTab {...prop} state={this.state}/>)}/>
             </div>
-            <br/>
-            <button onClick={() => {
-              this.setState({
-                tab: "HomeTab"
-              }); 
-            }} className='switch-button'>Home</button>
-            <button onClick={() => {
-              this.setState({
-                tab: "PlaylistTab"
-              }); 
-            }} className='switch-button'>My Playlists</button>
-            <Filter onTextChange={text => this.setState({filterString: text})}/>
-            <HomeTab state={this.state}/>
-            <PlaylistTab state={this.state}/>
-          </div>
-        }
-      </div>
+          }
+        </div>
+      </Router>
     );
   }
 } export default App;

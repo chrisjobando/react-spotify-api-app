@@ -7,7 +7,7 @@ body
 
 .login-button
   margin-top: 50vh
-  background: rgba(138, 201, 38, 1)
+  background: rgb(138, 201, 38)
   color: #fff
   border: none
   border-radius: 0.5rem
@@ -20,7 +20,7 @@ body
   outline: none
   &:hover
     background: #fff
-    color: rgba(138, 201, 38, 1)
+    color: rgb(138, 201, 38)
   &:before, &:after
     content: ''
     position: absolute
@@ -28,7 +28,7 @@ body
     right: 0
     height: 2px
     width: 0
-    background: rgba(138, 201, 38, 1)
+    background: rgb(138, 201, 38)
     transition: 400ms ease all
   &:after
     right: inherit
@@ -63,17 +63,18 @@ h2
   margin: 0 auto
 
 a
-  color: rgba(255, 202, 58, 1)
+  color: rgb(255, 202, 58)
   text-decoration: none
 
-button
-  color: #fff
-  background-color: transparent
-  border: none
-  cursor: pointer
-  overflow: hidden
-  outline: none
+nav
   font-weight: 600
-  font-size: 24px
-  margin-bottom: 20px
-  
+  font-size: 32px
+  li
+    display: inline-block
+    justify-content: space-between
+    text-decoration: none
+    padding: 0 2rem
+    a
+      color: white
+    .active
+      color: rgb(255, 202, 58)

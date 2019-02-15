@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import '../../styling/Filter.sass';
+import '../styling/Filter.sass';
 
 
 class Filter extends Component {
@@ -8,7 +8,7 @@ class Filter extends Component {
       return(
         <div>
           <span className='search-icon'>
-            <FontAwesome name='search' size='1x'style={{marginRight: '10px'}} />
+            <FontAwesome name='search' style={{marginRight: '10px'}} />
           </span>
           <input type="text" onKeyUp={event =>
             this.props.onTextChange(event.target.value)}

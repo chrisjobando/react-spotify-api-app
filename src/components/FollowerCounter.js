@@ -6,7 +6,7 @@ class FollowerCounter extends Component {
         return(
         <div>
             <h2>
-                <FontAwesome name='user' size='1x'style={{marginRight: '10px'}} />
+                <FontAwesome name='user' style={{marginRight: '10px'}} />
                 {this.props.followers} followers
             </h2>
         </div>

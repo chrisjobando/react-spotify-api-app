@@ -12,11 +12,9 @@ class PlaylistTab extends Component {
           }) : [];
         return(
           <div>
-            {this.props.state.tab === "PlaylistTab" &&
-              <div>
-                  {playlistsToRender.map(playlist => <Playlist playlist={playlist}/>)}
-              </div>
-            }
+            <div>
+                {playlistsToRender.map(playlist => <Playlist playlist={playlist}/>)}
+            </div>
           </div>
         );
     }
