@@ -99,6 +99,12 @@ class App extends Component {
     });
   }
 
+  /**
+   * @author: Christopher Obando
+   * Uses the getMyTopTracks() method from spotify wrapper, returns an array
+   * of the (limit) amount of tracks that the user has played the most over the
+   * specified time range (short = 1 month, medium = 1 year, long = forever)
+  */
   getMyTopTracks() {
     spotify.getMyTopTracks({limit: 10, time_range: 'medium_term'})
       .then((result) => {
