@@ -1,0 +1,46 @@
+.navbar
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    background: #000
+    height: 60px
+    text-align: left
+
+.navbar-nav
+    display: flex
+    align-items: center
+    height: 100%
+    padding: 0 1rem
+
+.navbar-logo
+    img
+        width: 30px
+        height: auto
+    a
+    color: #fff
+    text-decoration: none
+    font-size: 1.5rem
+
+.navbar-nav-items
+    ul
+        list-style: none
+        margin: 0
+        padding: 0
+        display: flex
+    
+    li
+        padding: 0 0.5rem
+    
+    .active
+        color: rgb(255, 202, 58)
+
+    a
+        font-weight: 600
+        font-size: 1.25rem
+        color: #fff
+        text-decoration: none
+        &:hover, &:active
+            color: rgb(255, 202, 58)
+.spacer
+    flex: 1

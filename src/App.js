@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 // General App Styling
 import './App.sass';
@@ -15,6 +15,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import queryString from 'query-string';
 
 // Components
+import Navbar from './components/Navbar';
 import Header from './components/Header';
 import Login from './components/Login';
 import Filter from './components/Filter';
@@ -93,7 +94,7 @@ class App extends Component {
    * specified time range (short = 1 month, medium = 1 year, long = forever)
   */
   getTopTracks() {
-    spotify.getMyTopTracks({limit: 10}).then(result => {
+    spotify.getMyTopTracks({limit: 25}).then(result => {
         this.setState({
           tracks: result.items,
         });
@@ -122,33 +123,25 @@ class App extends Component {
               && this.state.playlists && this.state.tracks &&
             <div>
               {/* App Navigation */}
-              <nav>
-                <ul>
-                  <li>
-                    <NavLink to='/' exact activeClassName='active'
-                    className='switch-button'>Home</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/playlists' activeClassName='active'
-                    className='switch-button'>My Playlists</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/top' activeClassName='active'
-                    className='switch-button'>My Stats</NavLink>
-                  </li>
-                </ul>
-              </nav>
+              <Navbar />
 
               {/* Header, doesn't change */}
               <Header state={this.state}/>
 
-              {/* App Components */}
-              <Filter onTextChange={text => this.setState({filterString: text})}/>
-
               {/* Routes */}
               <Route exact path="/" render={(prop) => (<HomeTab {...prop} state={this.state}/>)}/>
-              <Route path="/playlists" render={(prop) => (<PlaylistTab {...prop} state={this.state}/>)}/>
-              <Route path="/top" render={(prop) => (<TopTab {...prop} state={this.state}/>)}/>
+              <Route path="/playlists" render={(prop) => (
+                <div>
+                  <Filter {...prop} placeholder={"Search for a playlist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <PlaylistTab {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/top" render={(prop) => (
+                <div>
+                  <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <TopTab {...prop} state={this.state}/>
+                </div>
+              )}/>
             </div>
           }
         </div>

@@ -17,7 +17,9 @@ const Track = (props) => {
                 <span className="info">
                     <a href={props.post.external_urls.spotify}
                         target="_blank" rel="noopener noreferrer">
-                        . {props.post.name}
+                        <span className="bold">{props.index+1}. </span>
+                        {props.post.name} by
+                        <span className="bold"> {props.post.artists[0].name}</span>
                     </a>
                 </span>
             </div>

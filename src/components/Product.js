@@ -4,9 +4,9 @@ class Product extends Component {
     render () {
         return(
         <div>
-            <h2>
+            <h3>
             {this.props.accountType} Account
-            </h2>
+            </h3>
         </div>
         );
     }

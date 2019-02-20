@@ -10,7 +10,7 @@ class Filter extends Component {
           <span className='search-icon'>
             <FontAwesome name='search' style={{marginRight: '10px'}} />
           </span>
-          <input type="text" onKeyUp={event =>
+          <input type="text" placeholder={this.props.placeholder} onKeyUp={event =>
             this.props.onTextChange(event.target.value)}
             className='search-bar'/>
         </div>

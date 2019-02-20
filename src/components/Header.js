@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// Styling
+import '../styling/Header.sass';
+
 // Components
 import Product from './Product';
 import FollowerCounter from './FollowerCounter';
@@ -18,21 +21,22 @@ class Header extends Component {
 
     render() {
         return(
-            <header>
-                <img src={this.props.state.user.images[0].url}
-                    alt='Profile Pic' className='profilePic'/>
-                <h1 style={{fontSize: '54px'}}>
-                {this.props.state.user.display_name}
-                </h1>
-                <Product accountType={this.capitalize(this.props.state.user.product)} />
-                <h2><a href={this.props.state.user.external_urls.spotify}
-                    target='_blank'
-                    rel='noopener noreferrer'>Link to Profile</a></h2>
-                <br/>
-                <div className='profile-info'>
-                <FollowerCounter followers={this.props.state.user.followers.total} />
-                <PlaylistCounter numPlaylists={this.props.state.playlists.length} />
-                </div>
+            <header className="head" style={{paddingTop: '80px'}}>
+                <span className="flex-box">
+                    <img src={this.props.state.user.images[0].url}
+                        alt='Profile Pic' className='profilePic'/>
+                    <span className="text-info">
+                        <h1>{this.props.state.user.display_name}</h1>
+                        <Product accountType={this.capitalize(this.props.state.user.product)} />
+                        <h2><a href={this.props.state.user.external_urls.spotify}
+                            target='_blank'
+                            rel='noopener noreferrer'>Link to Profile</a></h2>
+                    </span>
+                    <div className="comp-info">
+                        <FollowerCounter followers={this.props.state.user.followers.total} />
+                        <PlaylistCounter numPlaylists={this.props.state.playlists.length} />
+                    </div>
+                </span>
                 <br/>
           </header>
         );
