@@ -45,7 +45,7 @@ class App extends Component {
     this.state = {
       loggedIn: token ? true : false,
       user: "",
-      playlists: "",
+      playlists: [],
       tracks: [],
       filterString: ""
     }
@@ -69,8 +69,8 @@ class App extends Component {
    */
   componentDidMount() {
     this.getMyInfo();
+    this.getTopTracks();
     this.getMyPlaylists();
-    this.getMyTopTracks();
   }
 
   /**
@@ -88,32 +88,29 @@ class App extends Component {
 
   /**
    * @author: Christopher Obando
-   * Uses the getUserPlaylist() method from spotify wrapper, returns an
-   * object containing (50) of the current user's playlists as an array
-   */
-  getMyPlaylists() {
-    spotify.getUserPlaylists({limit: 50}).then((result) => {
-      this.setState({
-        playlists: result.items,
-      });
-    });
-  }
-
-  /**
-   * @author: Christopher Obando
    * Uses the getMyTopTracks() method from spotify wrapper, returns an array
    * of the (limit) amount of tracks that the user has played the most over the
    * specified time range (short = 1 month, medium = 1 year, long = forever)
   */
-  getMyTopTracks() {
-    spotify.getMyTopTracks({limit: 10, time_range: 'medium_term'})
-      .then((result) => {
-        console.log(result);
+  getTopTracks() {
+    spotify.getMyTopTracks({limit: 10}).then(result => {
         this.setState({
-          tracks: result.items
+          tracks: result.items,
         });
-        console.log(this.state.tracks);
       });
+  }
+  
+  /**
+   * @author: Christopher Obando
+   * Uses the getUserPlaylist() method from spotify wrapper, returns an
+   * object containing (50) of the current user's playlists as an array
+   */
+  getMyPlaylists() {
+    spotify.getUserPlaylists({limit: 50}).then(result => {
+      this.setState({
+        playlists: result.items,
+      });
+    });
   }
 
   render() {
@@ -127,13 +124,18 @@ class App extends Component {
               {/* App Navigation */}
               <nav>
                 <ul>
-                  <li><NavLink to='/' exact activeClassName='active'
-                    className='switch-button'>Home</NavLink></li>
-                  <li><NavLink to='/playlists' activeClassName='active'
-                    className='switch-button'>My Playlists</NavLink></li>
-                  <li><NavLink to='/top' activeClassName='active'
-                    onClick={() => this.getMyTopTracks()}
-                    className='switch-button'>My Stats</NavLink></li>
+                  <li>
+                    <NavLink to='/' exact activeClassName='active'
+                    className='switch-button'>Home</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/playlists' activeClassName='active'
+                    className='switch-button'>My Playlists</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/top' activeClassName='active'
+                    className='switch-button'>My Stats</NavLink>
+                  </li>
                 </ul>
               </nav>
 

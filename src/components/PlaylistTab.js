@@ -8,7 +8,6 @@ class PlaylistTab extends Component {
           ? this.props.state.playlists.filter(playlist => {
             let matchesPlaylist = playlist.name.toLowerCase().includes(
               this.props.state.filterString.toLowerCase());
-            console.log(this.props.state)
             return matchesPlaylist;
           }) : [];
         return(

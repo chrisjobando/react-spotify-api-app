@@ -1,14 +1,13 @@
 import React from 'react';
 
+import '../../styling/Track.sass';
+
 const Track = (props) => {
     return(
-        <div>
+        <div className="track">
             <div key={props.post.id}>
-                <span>
-                    <a href={props.post.artists[0].external_urls.spotify}
-                        target="_blank" rel="noopener noreferrer">
-                        {props.post.artists[0].name}
-                    </a>: <a href={props.post.external_urls.spotify}
+                <span className="info">
+                    <a href={props.post.external_urls.spotify}
                         target="_blank" rel="noopener noreferrer">
                         {props.post.name}
                     </a>
