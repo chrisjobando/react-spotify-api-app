@@ -7,7 +7,7 @@ class HomeTab extends Component {
             <div>
                 <h1>Welcome to My Spotify Web App!</h1>
                 <h2>This is in its early stages, so be patient while I read 
-                    a LOT of documentation and experiment with SASS to implement
+                    a LOT of documentation and experiment with Sass to implement
                     my vision.</h2>
             </div>
         );
