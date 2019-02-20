@@ -24,6 +24,8 @@ import Filter from './components/Filter';
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
 import TopTab from './components/TopTab';
+import TopTracks from './components/TopTracks';
+import TopArtists from './components/TopArtists';
 
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
@@ -48,6 +50,7 @@ class App extends Component {
       user: "",
       playlists: [],
       tracks: [],
+      artists: [],
       filterString: ""
     }
   }
@@ -71,6 +74,7 @@ class App extends Component {
   componentDidMount() {
     this.getMyInfo();
     this.getTopTracks();
+    this.getTopArtists();
     this.getMyPlaylists();
   }
 
@@ -97,6 +101,18 @@ class App extends Component {
     spotify.getMyTopTracks({limit: 25}).then(result => {
         this.setState({
           tracks: result.items,
+        });
+      });
+  }
+
+  /**
+   * @author: Christophber Obando
+   * 
+   */
+  getTopArtists() {
+    spotify.getMyTopArtists({limit: 25}).then(result => {
+        this.setState({
+          artists: result.items,
         });
       });
   }
@@ -135,11 +151,23 @@ class App extends Component {
                   <Filter {...prop} placeholder={"Search for a playlist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <PlaylistTab {...prop} state={this.state}/>
                 </div>
-              )}/>
-              <Route path="/top" render={(prop) => (
+              )}/>              
+              <Route path="/top" exact render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <TopTab {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/top/tracks" render={(prop) => (
+                <div>
+                  <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <TopTracks {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/top/artists" render={(prop) => (
+                <div>
+                  <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <TopArtists {...prop} state={this.state}/>
                 </div>
               )}/>
             </div>

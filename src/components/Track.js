@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../styling/Track.sass';
+import '../styling/Track.sass';
 
 const Track = (props) => {
     return(
