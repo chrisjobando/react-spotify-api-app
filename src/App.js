@@ -95,7 +95,7 @@ class App extends Component {
    * @author: Christopher Obando
    * Uses the getMyTopTracks() method from spotify wrapper, returns an array
    * of the (limit) amount of tracks that the user has played the most over the
-   * specified time range (short = 1 month, medium = 1 year, long = forever)
+   * specified time range (short = 1 month, medium = 6 months, long = forever)
   */
   getTopTracks() {
     spotify.getMyTopTracks({limit: 25}).then(result => {
@@ -106,8 +106,23 @@ class App extends Component {
   }
 
   /**
+   * @author: Christopher Obando
+   * Same as method above, but has
+   * @param range takes in a string with time range of data 
+  */
+  getTopTracksRange(range) {
+    spotify.getMyTopTracks({limit: 25, time_range: range}).then(result => {
+      this.setState({
+        tracks: result.items,
+      });
+    });
+  }
+
+  /**
    * @author: Christophber Obando
-   * 
+   * Uses the getMyTopArtists() method from spotify wrapper, returns an array
+   * of the (limit) amount of artist that the user has listened to the most over
+   * the specified time range (short = 1 month, medium = 6 months, long = forever)
    */
   getTopArtists() {
     spotify.getMyTopArtists({limit: 25}).then(result => {
@@ -115,6 +130,19 @@ class App extends Component {
           artists: result.items,
         });
       });
+  }
+
+  /**
+   * @author: Christopher Obando
+   * Same as method above, but has
+   * @param range takes in a string with time range of data 
+  */
+  getTopArtistsRange(range) {
+    spotify.getMyTopArtists({limit: 25, time_range: range}).then(result => {
+      this.setState({
+        artists: result.items,
+      });
+    });
   }
   
   /**
@@ -161,12 +189,22 @@ class App extends Component {
               <Route path="/top/tracks" render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <div className="time">
+                    <button onClick={() => this.getTopTracksRange("short_term")}>Past Month</button>
+                    <button onClick={() => this.getTopTracksRange("medium_term")}>Past 6 Months</button>
+                    <button onClick={() => this.getTopTracksRange("long_term")}>All Time</button>
+                  </div>
                   <TopTracks {...prop} state={this.state}/>
                 </div>
               )}/>
               <Route path="/top/artists" render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <div className="time">
+                    <button onClick={() => this.getTopArtistsRange("short_term")}>Past Month</button>
+                    <button onClick={() => this.getTopArtistsRange("medium_term")}>Past 6 Months</button>
+                    <button onClick={() => this.getTopArtistsRange("long_term")}>All Time</button>
+                  </div>
                   <TopArtists {...prop} state={this.state}/>
                 </div>
               )}/>

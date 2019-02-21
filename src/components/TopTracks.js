@@ -6,6 +6,7 @@ import Track from './Track';
 import '../styling/TopTab.sass';
 
 class TopTab extends Component {
+
   render() {
     let tracksToRender =
     this.props.state.tracks
@@ -20,7 +21,7 @@ class TopTab extends Component {
           <NavLink to="/top/tracks">Top 25 Tracks</NavLink>
           <NavLink to="/top/artists">Top 25 Artists</NavLink>
         </div>
-        
+
         {tracksToRender.map((track, index) =><Track post={track} index={index}/>)}
       </div>
     );
