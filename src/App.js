@@ -16,7 +16,6 @@ import queryString from 'query-string';
 
 // Components
 import Navbar from './components/Navbar';
-import Header from './components/Header';
 import Login from './components/Login';
 import Filter from './components/Filter';
 
@@ -186,6 +185,9 @@ class App extends Component {
               <Route path="/top/tracks" render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <div className="switch">
+                    <NavLink to="/top/artists" onClick={() => this.setState({artists: []})}>See Your Top 25 Artists</NavLink>
+                  </div>
                   <div className="time">
                   <NavLink onClick={() => this.getTopTracksRange("short_term")}
                       to="/top/tracks/short" activeClassName="active">Past Month</NavLink>
@@ -200,6 +202,9 @@ class App extends Component {
               <Route path="/top/artists" render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <div className="switch">
+                    <NavLink to="/top/tracks" onClick={() => this.setState({tracks: []})}>See Your Top 25 Tracks</NavLink>
+                  </div>
                   <div className="time">
                     <NavLink onClick={() => this.getTopArtistsRange("short_term")}
                       to="/top/artists/short" activeClassName="active">Past Month</NavLink>

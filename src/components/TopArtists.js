@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom';
-
 import Artist from './Artist';
-
 import '../styling/TopTab.sass';
 
 class TopTab extends Component {
@@ -16,10 +13,6 @@ class TopTab extends Component {
     }) : [];
     return(
       <div>
-        <div className="switch">
-          <NavLink to="/top/tracks" onClick={() => this.props.state.tracks=[]} activeClassName="activeSwitch">Top 25 Tracks</NavLink>
-          <NavLink to="/top/artists" onClick={() => this.props.state.artists=[]} activeClassName="activeSwitch">Top 25 Artists</NavLink>
-        </div>
         {artistsToRender.map((artist, index) => <Artist post={artist} index={index}/>)}
       </div>
     );
