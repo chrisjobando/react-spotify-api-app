@@ -167,8 +167,7 @@ class App extends Component {
               {/* App Navigation */}
               <Navbar state={this.state}/>
 
-              {/* Header, doesn't change */}
-              <Header state={this.state}/>
+              <div style={{paddingTop: '100px'}}></div>
 
               {/* Routes */}
               <Route exact path="/" render={(prop) => (<HomeTab {...prop} state={this.state}/>)}/>

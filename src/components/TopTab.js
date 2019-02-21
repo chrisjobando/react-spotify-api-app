@@ -13,7 +13,6 @@ class TopTab extends Component {
           <NavLink to="/top/tracks">Top 25 Tracks</NavLink>
           <NavLink to="/top/artists">Top 25 Artists</NavLink>
         </div>
-        <h2>Click either button to begin</h2>
       </div>
     );
   }
