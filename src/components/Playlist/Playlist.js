@@ -6,9 +6,12 @@ class Playlist extends Component {
       let playlist = this.props.playlist;
       return(
         <div className='playlist-grid'>
-          <img src={playlist.images[0].url}
-              className='album-cover'
-              alt='Album Cover'/>
+          <a href={playlist.external_urls.spotify}
+            target="_blank" rel="noopener noreferrer">
+              <img src={playlist.images[0].url}
+                className='album-cover'
+                alt='Album Cover'/>
+          </a>
           <h3>{playlist.name}</h3>
         </div>
       );
