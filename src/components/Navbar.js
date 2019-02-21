@@ -12,7 +12,9 @@ import '../styling/Navbar.sass';
                         <img src={this.props.state.user.images[0].url}
                             alt='Profile Pic' className='profilePic'/>
                         <div>
-                            <p>{this.props.state.user.display_name}</p>
+                            <a href={this.props.state.user.external_urls.spotify}
+                            target='_blank'
+                            rel='noopener noreferrer'>{this.props.state.user.display_name}</a>
                             <p className="logout"><a href="/">Logout</a></p>
                         </div>
                     </div>
