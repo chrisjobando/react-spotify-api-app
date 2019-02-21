@@ -7,11 +7,13 @@ class TopTab extends Component {
   render() {
     return(
       <div>
+        <h2>See your top 25 tracks/artists!</h2>
+        <br/>
         <div className="switch">
           <NavLink to="/top/tracks">Top 25 Tracks</NavLink>
           <NavLink to="/top/artists">Top 25 Artists</NavLink>
         </div>
-        <h2>See your top 25 tracks/artists of the past 6 months!</h2>
+        <h2>Click either button to begin</h2>
       </div>
     );
   }

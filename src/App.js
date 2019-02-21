@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 
 // General App Styling
 import './App.sass';
@@ -73,8 +73,6 @@ class App extends Component {
    */
   componentDidMount() {
     this.getMyInfo();
-    this.getTopTracks();
-    this.getTopArtists();
     this.getMyPlaylists();
   }
 
@@ -190,9 +188,12 @@ class App extends Component {
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <div className="time">
-                    <button onClick={() => this.getTopTracksRange("short_term")}>Past Month</button>
-                    <button onClick={() => this.getTopTracksRange("medium_term")}>Past 6 Months</button>
-                    <button onClick={() => this.getTopTracksRange("long_term")}>All Time</button>
+                  <NavLink onClick={() => this.getTopTracksRange("short_term")}
+                      to="/top/tracks/short" activeClassName="active">Past Month</NavLink>
+                    <NavLink onClick={() => this.getTopTracksRange("medium_term")}
+                      to="/top/tracks/medium" activeClassName="active">Past 6 Months</NavLink>
+                    <NavLink onClick={() => this.getTopTracksRange("long_term")}
+                      to="/top/tracks/long" activeClassName="active">All Time</NavLink>
                   </div>
                   <TopTracks {...prop} state={this.state}/>
                 </div>
@@ -201,9 +202,12 @@ class App extends Component {
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <div className="time">
-                    <button onClick={() => this.getTopArtistsRange("short_term")}>Past Month</button>
-                    <button onClick={() => this.getTopArtistsRange("medium_term")}>Past 6 Months</button>
-                    <button onClick={() => this.getTopArtistsRange("long_term")}>All Time</button>
+                    <NavLink onClick={() => this.getTopArtistsRange("short_term")}
+                      to="/top/artists/short" activeClassName="active">Past Month</NavLink>
+                    <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
+                      to="/top/artists/medium" activeClassName="active">Past 6 Months</NavLink>
+                    <NavLink onClick={() => this.getTopArtistsRange("long_term")}
+                      to="/top/artists/long" activeClassName="active">All Time</NavLink>
                   </div>
                   <TopArtists {...prop} state={this.state}/>
                 </div>
