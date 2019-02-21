@@ -165,7 +165,7 @@ class App extends Component {
               && this.state.playlists && this.state.tracks &&
             <div>
               {/* App Navigation */}
-              <Navbar />
+              <Navbar state={this.state}/>
 
               {/* Header, doesn't change */}
               <Header state={this.state}/>
