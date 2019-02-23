@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
 import '../../styling/Playlist.sass';
 
 class Playlist extends Component {
     render() {
       let playlist = this.props.playlist;
       return(
-        <div className='playlist-grid'>
-          <a href={playlist.external_urls.spotify}
-            target="_blank" rel="noopener noreferrer">
-              <img src={playlist.images[0].url}
-                className='album-cover'
-                alt='Album Cover'/>
-          </a>
+        <div className='playlist-grid' key={playlist.id}>
+          <NavLink to={{pathname:"/playlist_details",
+            state:{playlist: playlist}, search: window.location.search}}>
+            <img src={playlist.images[0].url}
+              className='album-cover'
+              alt='Album Cover'/>
+          </NavLink>
           <h3>{playlist.name}</h3>
         </div>
       );

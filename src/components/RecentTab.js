@@ -17,7 +17,7 @@ class HomeTab extends Component {
           }) : [];
         return(
             <div>
-                {tracksToRender.map((track, index) =><Track post={track.track} index={index}/>)}
+                {tracksToRender.map((track, index) =><Track post={track.track} index={index} key={track.id}/>)}
           </div>
         );
     }

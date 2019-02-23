@@ -3,26 +3,27 @@ import React from 'react';
 import '../styling/Track.sass';
 
 const Track = (props) => {
+    let track = props.post;
     return(
         <div className="track">
-            <div key={props.post.id}>
+            <div key={track.id}>
                 <span>
-                    <a href={props.post.album.external_urls.spotify}
+                    <a href={track.album.external_urls.spotify}
                     target="_blank" rel="noopener noreferrer">
-                        <img src={props.post.album.images[0].url}
+                        <img src={track.album.images[0].url}
                             className='pic' alt='album-cover'></img>
                     </a>
                 </span>
                 <br/>
                 <span className="info">
-                    <a href={props.post.external_urls.spotify}
+                    <a href={track.external_urls.spotify}
                         target="_blank" rel="noopener noreferrer">
                         <span className="bold">{props.index+1}. </span>
-                        {props.post.name} <br/>
+                        {track.name} <br/>
                     </a>
-                    <a href={props.post.artists[0].external_urls.spotify}
+                    <a href={track.artists[0].external_urls.spotify}
                         target="_blank" rel="noopener noreferrer">
-                        <span className="bold"> {props.post.artists[0].name}</span>
+                        <span className="bold"> {track.artists[0].name}</span>
                     </a>
                 </span>
             </div>

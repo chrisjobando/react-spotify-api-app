@@ -10,6 +10,7 @@ import PlaylistCounter from './Playlist/PlaylistCounter';
 
 class HomeTab extends Component {
     render() {
+        let current = this.props.state.current;
         return(
             <div>
                 <header className="head">
@@ -21,24 +22,24 @@ class HomeTab extends Component {
                     a LOT of documentation and experiment with Sass to implement
                     my vision.</h2>
                 <br/>
-                {this.props.state.current &&
+                {current &&
                     <div>
-                        <h1>Currently Playing Track:</h1>
+                        <h1>Currently Playing:</h1>
                         <br/> 
                         <div className="track">
                             <span>
-                                <a href={this.props.state.current.album.external_urls.spotify}
+                                <a href={current.album.external_urls.spotify}
                                 target="_blank" rel="noopener noreferrer">
-                                    <img src={this.props.state.current.album.images[0].url}
+                                    <img src={current.album.images[0].url}
                                         className='pic' alt='album-cover'></img>
                                 </a>
                             </span>
                             <br/>
                             <span className="info">
-                                <a href={this.props.state.current.external_urls.spotify}
+                                <a href={current.external_urls.spotify}
                                     target="_blank" rel="noopener noreferrer">
-                                    {this.props.state.current.name} <br/>
-                                    <span className="bold"> {this.props.state.current.artists[0].name}</span>
+                                    {current.name} <br/>
+                                    <span className="bold"> {current.artists[0].name}</span>
                                 </a>
                             </span>
                         </div>

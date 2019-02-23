@@ -13,7 +13,7 @@ class PlaylistTab extends Component {
         return(
           <div>
             <div>
-                {playlistsToRender.map(playlist => <Playlist playlist={playlist}/>)}
+                {playlistsToRender.map(playlist => <Playlist playlist={playlist} key={playlist.id}/>)}
             </div>
           </div>
         );

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 // General App Styling
 import './App.sass';
@@ -24,6 +25,7 @@ import Filter from './components/Filter';
 // Tabs
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
+import PlaylistPage from './components/Playlist/PlaylistPage';
 import RecentTab from './components/RecentTab';
 import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
@@ -83,6 +85,8 @@ class App extends Component {
     this.getTopArtistsRange("medium_term");
     this.getTopTracksRange("medium_term");
     this.getMyRecents();
+    setInterval(() => this.getMyCurrent(), 2000);
+    setInterval(() => this.getMyRecents(), 30000);
   }
 
   /**
@@ -234,7 +238,12 @@ class App extends Component {
               <Route exact path="/" render={(prop) => (
                 <div>
                   <HomeTab {...prop} state={this.state}/>
-                  {this.getMyCurrent()}
+                  {this.state.current && <span>
+                    <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='arrow-alt-circle-left' size='2x'/></button>
+                    <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='2x'/></button>
+                    <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='2x'/></button>
+                    <button onClick={() => spotify.skipToNext()}><FontAwesome name='arrow-alt-circle-right' size='2x'/></button>
+                  </span>}
                 </div>
               )}/>
               <Route path="/playlists" render={(prop) => (
@@ -246,7 +255,6 @@ class App extends Component {
               <Route path="/recent" render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
-                  {this.getMyRecents()}
                   <RecentTab {...prop} state={this.state}/>
                 </div>
               )}/>
@@ -296,6 +304,11 @@ class App extends Component {
                       activeClassName="active">All Time</NavLink>
                   </div>
                   <TopArtists {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/playlist_details" render={(prop) => (
+                <div>
+                  <PlaylistPage {...prop} state={this.state}/>
                 </div>
               )}/>
             </div>
