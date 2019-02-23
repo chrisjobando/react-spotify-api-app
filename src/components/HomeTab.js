@@ -20,6 +20,30 @@ class HomeTab extends Component {
                 <h2>This is in its early stages, so be patient while I read 
                     a LOT of documentation and experiment with Sass to implement
                     my vision.</h2>
+                <br/>
+                {this.props.state.current &&
+                    <div>
+                        <h1>Currently Playing Track:</h1>
+                        <br/> 
+                        <div className="track">
+                            <span>
+                                <a href={this.props.state.current.album.external_urls.spotify}
+                                target="_blank" rel="noopener noreferrer">
+                                    <img src={this.props.state.current.album.images[0].url}
+                                        className='pic' alt='album-cover'></img>
+                                </a>
+                            </span>
+                            <br/>
+                            <span className="info">
+                                <a href={this.props.state.current.external_urls.spotify}
+                                    target="_blank" rel="noopener noreferrer">
+                                    {this.props.state.current.name} <br/>
+                                    <span className="bold"> {this.props.state.current.artists[0].name}</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }

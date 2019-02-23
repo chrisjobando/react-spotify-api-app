@@ -13,8 +13,12 @@
     align-items: center
     height: 100%
     padding: 0 1rem
-    @media(max-width: 600px)
-        padding-left: 5px
+    @media(max-width: 750px)
+        padding-left: 15px
+
+    @media(min-width: 750px)
+        .toggle-button
+            display: none
 
 .navbar-logo
     color: #fff
@@ -27,23 +31,23 @@
             margin: 0
         .logout
             font-size: 1rem
-            @media(max-width: 600px)
-                padding-left: 0
+            @media(max-width: 750px)
+                display: none
         a
             color: #fff
             &:hover, &:active
                 color: rgb(255, 202, 58)
 
-    @media(max-width: 600px)
-        font-size: 0rem
+        @media(max-width: 750px)
+            padding-top: 12px
 
     .profilePic
         object-fit: cover
         border-radius: 50%
         height: 45px
         width: 45px
-        @media(max-width: 600px)
-            display: none
+        @media(max-width: 750px)
+            padding-left: 15px
 
 .navbar-nav-items
     ul
@@ -65,7 +69,8 @@
         text-decoration: none
         &:hover, &:active
             color: rgb(255, 202, 58)
-        @media(max-width: 600px)
-            font-size: 1rem
+        @media(max-width: 750px)
+            display: none
+
 .spacer
     flex: 1

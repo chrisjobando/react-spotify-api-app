@@ -15,6 +15,8 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import queryString from 'query-string';
 
 // Components
+import Backdrop from './components/Backdrop/Backdrop';
+import NavDrawer from './components/NavDrawer/NavDrawer';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Filter from './components/Filter';
@@ -22,6 +24,7 @@ import Filter from './components/Filter';
 // Tabs
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
+import RecentTab from './components/RecentTab';
 import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
 import TopArtists from './components/TopArtists';
@@ -43,15 +46,18 @@ class App extends Component {
     const token = params.access_token;
     if (token) {
       spotify.setAccessToken(token);
-    }
+    };
     this.state = {
       loggedIn: token ? true : false,
       user: "",
       playlists: [],
       tracks: [],
       artists: [],
-      filterString: ""
-    }
+      recents: [],
+      current: "",
+      filterString: "",
+      navDrawerOpen: false
+    };
   }
 
   /**
@@ -73,6 +79,10 @@ class App extends Component {
   componentDidMount() {
     this.getMyInfo();
     this.getMyPlaylists();
+    this.getMyCurrent();
+    this.getTopArtistsRange("medium_term");
+    this.getTopTracksRange("medium_term");
+    this.getMyRecents();
   }
 
   /**
@@ -155,27 +165,91 @@ class App extends Component {
     });
   }
 
+  /**
+   * @author: Christopher Obando
+   * Uses the getMyRecentlyPlayedTracks() method from spotify wrapper,
+   * returns an object containing the most recent 25 tracks played by a user.
+   * Track had to have been played for more than 30 seconds and is visible 
+   * after completion
+   */
+  getMyRecents() {
+    spotify.getMyRecentlyPlayedTracks({limit: 25}).then(result => {
+      this.setState({
+        recents: result.items
+      });
+    });
+  }
+
+  /**
+   * @author: Christopher Obando
+   * Uses the getMyCurrentPlayingTrack() method from spotify wrapper,
+   * returns an object containing the user's current playing track.
+   * This endpoint is in BETA according to the Spotify API website, so
+   * it may go down randomly but I don't think this will be an issue.
+   */
+  getMyCurrent() {
+    spotify.getMyCurrentPlayingTrack().then(result => {
+      this.setState({
+        current: result.item
+      });
+    });
+  }
+
+  /**
+   * Methods for Navigation being responsive on mobile devices
+   * Copied from website
+   */
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return { navDrawerOpen: !prevState.navDrawerOpen };
+    });
+  };
+
+  backdropClickHandler = () => {
+    this.setState({ navDrawerOpen: false });
+  };
+
   render() {
+    let backdrop;
+    if (this.state.navDrawerOpen) {
+      backdrop = <Backdrop click={this.backdropClickHandler} />;
+    }
+  
     return (
       <Router>
         <div className="App">
           <Login loggedIn={this.state.loggedIn}/>
           {this.state.loggedIn && this.state.user
               && this.state.playlists && this.state.tracks &&
+              this.state.recents &&
             <div>
               {/* App Navigation */}
-              <Navbar state={this.state}/>
+              <Navbar state={this.state} drawerClickHandler={this.drawerToggleClickHandler} />
+              <NavDrawer show={this.state.navDrawerOpen} />
+              {backdrop}
 
               <div style={{paddingTop: '100px'}}></div>
 
               {/* Routes */}
-              <Route exact path="/" render={(prop) => (<HomeTab {...prop} state={this.state}/>)}/>
+              <Route exact path="/" render={(prop) => (
+                <div>
+                  <HomeTab {...prop} state={this.state}/>
+                  {this.getMyCurrent()}
+                </div>
+              )}/>
               <Route path="/playlists" render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for a playlist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <PlaylistTab {...prop} state={this.state}/>
                 </div>
-              )}/>              
+              )}/>     
+              <Route path="/recent" render={(prop) => (
+                <div>
+                  <Filter {...prop} placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
+                  {this.getMyRecents()}
+                  <RecentTab {...prop} state={this.state}/>
+                </div>
+              )}/>
               <Route path="/top" exact render={(prop) => (
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
@@ -186,15 +260,19 @@ class App extends Component {
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <div className="switch">
-                    <NavLink to="/top/artists" onClick={() => this.setState({artists: []})}>See Your Top 25 Artists</NavLink>
+                    <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
+                    to={{pathname: '/top/artists/medium_term', search: window.location.search}}>See Your Top 25 Artists</NavLink>
                   </div>
                   <div className="time">
                   <NavLink onClick={() => this.getTopTracksRange("short_term")}
-                      to="/top/tracks/short" activeClassName="active">Past Month</NavLink>
+                      to={{pathname: '/top/tracks/short_term', search: window.location.search}}
+                      activeClassName="active">Past Month</NavLink>
                     <NavLink onClick={() => this.getTopTracksRange("medium_term")}
-                      to="/top/tracks/medium" activeClassName="active">Past 6 Months</NavLink>
+                      to={{pathname: '/top/tracks/medium_term', search: window.location.search}}
+                      activeClassName="active">Past 6 Months</NavLink>
                     <NavLink onClick={() => this.getTopTracksRange("long_term")}
-                      to="/top/tracks/long" activeClassName="active">All Time</NavLink>
+                      to={{pathname: '/top/tracks/long_term', search: window.location.search}}
+                      activeClassName="active">All Time</NavLink>
                   </div>
                   <TopTracks {...prop} state={this.state}/>
                 </div>
@@ -203,15 +281,19 @@ class App extends Component {
                 <div>
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <div className="switch">
-                    <NavLink to="/top/tracks" onClick={() => this.setState({tracks: []})}>See Your Top 25 Tracks</NavLink>
+                    <NavLink to={{pathname: '/top/tracks/medium_term', search: window.location.search}}
+                      onClick={() => this.getTopTracksRange("medium_term")}>See Your Top 25 Tracks</NavLink>
                   </div>
                   <div className="time">
                     <NavLink onClick={() => this.getTopArtistsRange("short_term")}
-                      to="/top/artists/short" activeClassName="active">Past Month</NavLink>
+                      to={{pathname: '/top/artists/short_term', search: window.location.search}}
+                      activeClassName="active">Past Month</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
-                      to="/top/artists/medium" activeClassName="active">Past 6 Months</NavLink>
+                      to={{pathname: '/top/artists/medium_term', search: window.location.search}}
+                      activeClassName="active">Past 6 Months</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("long_term")}
-                      to="/top/artists/long" activeClassName="active">All Time</NavLink>
+                      to={{pathname: '/top/artists/long_term', search: window.location.search}}
+                      activeClassName="active">All Time</NavLink>
                   </div>
                   <TopArtists {...prop} state={this.state}/>
                 </div>
