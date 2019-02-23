@@ -45,7 +45,7 @@ class Player extends Component {
         let current = this.props.state.current;
         return(
             <header className="player">
-                {current && <div className="player-contents">
+                <div className="player-contents">
                     <div className="controls">
                         <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='arrow-alt-circle-left' size='2x'/></button>
                         <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='2x'/></button>
@@ -66,7 +66,7 @@ class Player extends Component {
                         <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='2x'/></button>
                         <button onClick={() => spotify.skipToNext()}><FontAwesome name='arrow-alt-circle-right' size='2x'/></button>
                     </div>
-                </div>}
+                </div>
             </header>
         );
     }

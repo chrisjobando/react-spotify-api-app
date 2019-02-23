@@ -230,7 +230,7 @@ class App extends Component {
               this.state.recents &&
             <div>
               {/* App Navigation */}
-              <Player state={this.state}/>
+              {this.state.current && <Player state={this.state}/>}
               <NavigationBar state={this.state}/>
               <Navbar state={this.state} drawerClickHandler={this.drawerToggleClickHandler} />
               <NavDrawer show={this.state.navDrawerOpen} />
