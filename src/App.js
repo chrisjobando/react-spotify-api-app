@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
-import FontAwesome from 'react-fontawesome';
 
 // General App Styling
 import './App.sass';
@@ -16,11 +15,13 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import queryString from 'query-string';
 
 // Components
+import NavigationBar from './components/NavigationBar/NavigationBar';
 import Backdrop from './components/Backdrop/Backdrop';
 import NavDrawer from './components/NavDrawer/NavDrawer';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Filter from './components/Filter';
+import Player from './components/Player/Player';
 
 // Tabs
 import HomeTab from './components/HomeTab';
@@ -177,7 +178,7 @@ class App extends Component {
    * after completion
    */
   getMyRecents() {
-    spotify.getMyRecentlyPlayedTracks({limit: 25}).then(result => {
+    spotify.getMyRecentlyPlayedTracks({limit: 10}).then(result => {
       this.setState({
         recents: result.items
       });
@@ -218,6 +219,7 @@ class App extends Component {
     if (this.state.navDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />;
     }
+
   
     return (
       <Router>
@@ -228,44 +230,41 @@ class App extends Component {
               this.state.recents &&
             <div>
               {/* App Navigation */}
+              <Player state={this.state}/>
+              <NavigationBar state={this.state}/>
               <Navbar state={this.state} drawerClickHandler={this.drawerToggleClickHandler} />
               <NavDrawer show={this.state.navDrawerOpen} />
               {backdrop}
 
-              <div style={{paddingTop: '100px'}}></div>
+              <div style={{paddingTop: '80px'}}></div>
 
               {/* Routes */}
               <Route exact path="/" render={(prop) => (
-                <div>
+                <div className="route">
+                  <div style={{paddingBottom: '10px'}} />
                   <HomeTab {...prop} state={this.state}/>
-                  {this.state.current && <span>
-                    <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='arrow-alt-circle-left' size='2x'/></button>
-                    <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='2x'/></button>
-                    <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='2x'/></button>
-                    <button onClick={() => spotify.skipToNext()}><FontAwesome name='arrow-alt-circle-right' size='2x'/></button>
-                  </span>}
                 </div>
               )}/>
               <Route path="/playlists" render={(prop) => (
-                <div>
+                <div className="route">
                   <Filter {...prop} placeholder={"Search for a playlist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <PlaylistTab {...prop} state={this.state}/>
                 </div>
               )}/>     
               <Route path="/recent" render={(prop) => (
-                <div>
+                <div className="route">
                   <Filter {...prop} placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
                   <RecentTab {...prop} state={this.state}/>
                 </div>
               )}/>
               <Route path="/top" exact render={(prop) => (
-                <div>
+                <div className="route">
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <TopTab {...prop} state={this.state}/>
                 </div>
               )}/>
               <Route path="/top/tracks" render={(prop) => (
-                <div>
+                <div className="route">
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <div className="switch">
                     <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
@@ -286,7 +285,7 @@ class App extends Component {
                 </div>
               )}/>
               <Route path="/top/artists" render={(prop) => (
-                <div>
+                <div className="route">
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <div className="switch">
                     <NavLink to={{pathname: '/top/tracks/medium_term', search: window.location.search}}
@@ -307,7 +306,7 @@ class App extends Component {
                 </div>
               )}/>
               <Route path="/playlist_details" render={(prop) => (
-                <div>
+                <div className="route">
                   <PlaylistPage {...prop} state={this.state}/>
                 </div>
               )}/>

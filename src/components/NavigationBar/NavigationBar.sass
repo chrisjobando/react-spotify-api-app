@@ -1,0 +1,38 @@
+.nav-bar
+  height: 100%
+  background: #000
+  position: fixed
+  top: 0
+  left: 0
+  width: 220px
+  max-width: 400px
+  z-index: 200
+  @media(max-width: 750px)
+      display: none
+
+  ul
+    height: 100%
+    list-style: none
+    display: flex
+    flex-direction: column
+    justify-content: center
+    text-align: left
+
+    li
+      margin: 2rem 0
+      a
+        color: white
+        text-decoration: none
+        font-size: 1.2rem
+        font-weight: 500
+        &:hover, &:active
+          color: rgb(236, 184, 7)
+      
+      .active
+        color: rgb(236, 184, 7)
+      
+    @media(max-width: 400px)
+      padding-left: 20px
+
+.open
+  transform: translateX(0)

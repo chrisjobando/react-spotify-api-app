@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './NavDrawer.sass';
+import './NavigationBar.sass';
 
 const navDrawer = props => {
-  let drawerClasses = 'nav-drawer';
+  let barClasses = 'nav-bar';
   if (props.show) {
-    drawerClasses = 'nav-drawer open';
+    barClasses = 'bar open';
   }
 
   return (
-    <nav className={drawerClasses}>
+    <nav className={barClasses}>
       <ul>
         <li><NavLink to={{pathname: '/', search: window.location.search}} exact activeClassName="active">Home</NavLink></li>
         <li><NavLink to={{pathname: '/recent', search: window.location.search}} activeClassName="active">Recently Played</NavLink></li>
