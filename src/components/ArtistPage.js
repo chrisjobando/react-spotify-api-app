@@ -51,8 +51,8 @@ class ArtistPage extends Component {
         this.getTopTracks();
         this.getAlbums();
         setInterval(() => this.getArtist(), 100);
-        setInterval(() => this.getTopTracks(), 1000);
-        setInterval(() => this.getAlbums(), 1000);
+        setInterval(() => this.getTopTracks(), 100);
+        setInterval(() => this.getAlbums(), 100);
     };
 
     getArtist() {

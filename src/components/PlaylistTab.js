@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Playlist from './Playlist/Playlist';
 
 class PlaylistTab extends Component {
+    componentDidMount() {
+      window.scrollTo(0,0);
+    }
     render() {
         let playlistsToRender =
         this.props.state.playlists

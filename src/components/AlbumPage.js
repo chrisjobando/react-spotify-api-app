@@ -56,7 +56,7 @@ class AlbumPage extends Component {
   };
 
   getAlbum() {
-    spotify.getAlbumTracks(this.state.album.id, {limit: 50}).then(result => {
+    spotify.getAlbumTracks(this.state.album.id, {limit: 50, include_groups: "album,single"}).then(result => {
       this.setState({
         albumTracks: result.items
       });
@@ -82,7 +82,7 @@ class AlbumPage extends Component {
             <h1>{album.name}</h1>
             <NavLink to={{pathname:"/artist_details",
                             state:{artist: album.artists[0]}, search: window.location.search}}>
-              <span className="bold" style={{fontSize: '20px'}}> {album.artists[0].name}</span>
+              <span className="bold" style={{fontSize: '24px'}}> {album.artists[0].name}</span>
             </NavLink>
             <br/><br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>

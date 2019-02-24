@@ -9,6 +9,10 @@ import FollowerCounter from './FollowerCounter';
 import PlaylistCounter from './Playlist/PlaylistCounter';
 
 class HomeTab extends Component {
+    componentDidMount() {
+        window.scrollTo(0,0);
+    }
+
     render() {
         return(
             <div>
