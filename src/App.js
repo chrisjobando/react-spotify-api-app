@@ -260,7 +260,6 @@ class App extends Component {
                   <div style={{paddingBottom: '10px'}} />
                   <HomeTab {...prop} state={this.state}/>
                   <br/>
-                  <Filter {...prop} placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
                   <Recent {...prop} state={this.state}/>
                 </div>
               )}/>

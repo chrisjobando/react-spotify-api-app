@@ -20,10 +20,10 @@ class HomeTab extends Component {
                 <h2>This is in its early stages, but feel free to try it out!</h2>
                 <br/>
                 <h2 className="links">Made by: Christopher Obando</h2>
-                <a className="links" href="https://open.spotify.com/user/chrisjobando"
-                target="_blank" rel="noopener noreferrer"><h2>Link To My Spotify</h2></a>
-                <a className="links" href="https://github.com/chrisjobando/spotify-app"
-                target="_blank" rel="noopener noreferrer"><h2>Link To Source Code</h2></a>
+                <h2 className="links"><a href="https://open.spotify.com/user/chrisjobando"
+                target="_blank" rel="noopener noreferrer">Link To My Spotify</a></h2>
+                <h2 className="links"><a href="https://github.com/chrisjobando/spotify-app"
+                target="_blank" rel="noopener noreferrer">Link To Source Code</a></h2>
                 <br/>
                 <h1>Recently Played:</h1>
             </div>
