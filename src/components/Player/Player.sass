@@ -6,41 +6,74 @@
     width: 100%
     background: #000
     height: 80px
-    text-align: right
-    @media(min-width: 750px)
-        padding-left: 110px
     
     .player-contents
         color: #fff
         display: flex
-        justify-content: space-around
         align-items: center
         height: 100%
         padding: 0 1rem
     
     .controls
         display: inline-flex
-        text-align: left
-        button,a
-            color: #fff
-            &:hover
-                color: rgb(255, 202, 58)
-                transition: all 0.6s ease
-            
+        position: absolute
+        left: 52.5%
+        @media(max-width: 1000px)
+            left: 80%
+        @media(max-width: 750px)
+            left: 75%
+        @media(max-width: 500px)
+            left: 70%
+        @media(max-width: 400px)
+            left: 60%
+
+    .title
+        width: 40%
+        @media(max-width: 1000px)
+            width: 55%
+        @media(max-width: 750px)
+            width: 70%
+        @media(max-width: 550px)
+            width: 75%
+        @media(max-width: 400px)
+            width: 60%
         p
-            margin: 0
-            padding-left: 0.75rem
-            padding-right: 1rem
-            font-size: 20px
-            @media(max-width: 750px)
-                font-size: 18px
-            @media(max-width: 400px)
-                font-size: 14px
-        img
-            width: 50px
-            border-radius: 0
-            &:hover
-                filter: brightness(50%)
-                transition: all .3s ease
-            @media(max-width: 500px)
-                display: none
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+
+    button,a
+        color: #fff
+        &:hover
+            color: rgb(255, 202, 58)
+            transition: all 0.6s ease
+
+    p
+        text-align: left
+        margin: 0
+        padding-left: 1.5rem
+        padding-right: 1.5rem
+        font-size: 18px
+        @media(max-width: 750px)
+            font-size: 16px
+        @media(max-width: 500px)
+            padding-left: 0
+            font-size: 14px
+    .bold
+        font-weight: 500
+        font-size: 20px
+        @media(max-width: 500px)
+            font-size: 18px
+    
+    img
+        width: 50px
+        border-radius: 0
+        &:hover
+            filter: brightness(50%)
+            transition: all .3s ease
+        @media(min-width: 760px)
+            padding-left: 15px
+            width: 150px
+            padding-bottom: 100px
+        @media(max-width: 500px)
+            display: none

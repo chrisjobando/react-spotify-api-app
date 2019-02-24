@@ -89,7 +89,7 @@ class App extends Component {
     this.getCurrentPlaybackState();
     this.getMyCurrent();
     setInterval(() => this.getMyRecents(), 30000);
-    setInterval(() => this.getCurrentPlaybackState(), 500);
+    setInterval(() => this.getCurrentPlaybackState(), 200);
   }
 
   /**

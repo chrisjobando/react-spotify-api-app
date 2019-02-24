@@ -59,27 +59,27 @@ class Player extends Component {
         return(
             <header className="player">
                 <div className="player-contents">
-                    <div className="controls">
-                        <a href={current.album.external_urls.spotify}
-                            target="_blank" rel="noopener noreferrer">
-                            <img src={current.album.images[0].url} className='pic' alt='album-cover'></img>
-                        </a>
-                        <div className="title">
+                    <a href={current.album.external_urls.spotify}
+                        target="_blank" rel="noopener noreferrer">
+                        <img src={current.album.images[0].url} className='pic' alt='album-cover'></img>
+                    </a>
+                    <div className="title">
                         <a href={current.external_urls.spotify}
                             target="_blank" rel="noopener noreferrer">
-                            <p style={{fontWeight: '500'}}>{current.name}</p>
+                            <p className="bold">{current.name}</p>
                         </a>
                         <a href={current.artists[0].external_urls.spotify}
                             target="_blank" rel="noopener noreferrer">
                             <p>{current.artists[0].name}</p>
                         </a>
-                        </div>
-                        <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='arrow-alt-circle-left' size='2x'/></button>
+                    </div>
+                    <div className="controls">
+                        <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='angle-left' size='2x'/></button>
                         {this.state.playing===false &&
-                            <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='2x'/></button>}
+                            <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='3x'/></button>}
                         {this.state.playing &&
-                            <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='2x'/></button>}
-                        <button onClick={() => spotify.skipToNext()}><FontAwesome name='arrow-alt-circle-right' size='2x'/></button>
+                            <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='3x'/></button>}
+                        <button onClick={() => spotify.skipToNext()}><FontAwesome name='angle-right' size='2x'/></button>
                     </div>
                 </div>
             </header>
