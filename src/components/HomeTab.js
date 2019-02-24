@@ -21,6 +21,7 @@ class HomeTab extends Component {
                     a LOT of documentation and experiment with Sass to implement
                     my vision.</h2>
                 <br/>
+                <h1>Recently Played:</h1>
             </div>
         );
     }

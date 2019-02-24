@@ -27,7 +27,7 @@ import Player from './components/Player/Player';
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
 import PlaylistPage from './components/Playlist/PlaylistPage';
-import RecentTab from './components/RecentTab';
+import Recent from './components/Recent';
 import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
 import TopArtists from './components/TopArtists';
@@ -58,6 +58,7 @@ class App extends Component {
       artists: [],
       recents: [],
       current: "",
+      playback: "",
       filterString: "",
       navDrawerOpen: false
     };
@@ -82,12 +83,13 @@ class App extends Component {
   componentDidMount() {
     this.getMyInfo();
     this.getMyPlaylists();
-    this.getMyCurrent();
     this.getTopArtistsRange("medium_term");
     this.getTopTracksRange("medium_term");
     this.getMyRecents();
-    setInterval(() => this.getMyCurrent(), 2000);
+    this.getCurrentPlaybackState();
+    this.getMyCurrent();
     setInterval(() => this.getMyRecents(), 30000);
+    setInterval(() => this.getCurrentPlaybackState(), 500);
   }
 
   /**
@@ -98,7 +100,7 @@ class App extends Component {
   getMyInfo() {
     spotify.getMe().then((result) => {
       this.setState({
-        user: result,
+        user: result
       });
     });
   }
@@ -112,7 +114,7 @@ class App extends Component {
   getTopTracks() {
     spotify.getMyTopTracks({limit: 25}).then(result => {
         this.setState({
-          tracks: result.items,
+          tracks: result.items
         });
       });
   }
@@ -125,7 +127,7 @@ class App extends Component {
   getTopTracksRange(range) {
     spotify.getMyTopTracks({limit: 25, time_range: range}).then(result => {
       this.setState({
-        tracks: result.items,
+        tracks: result.items
       });
     });
   }
@@ -139,7 +141,7 @@ class App extends Component {
   getTopArtists() {
     spotify.getMyTopArtists({limit: 25}).then(result => {
         this.setState({
-          artists: result.items,
+          artists: result.items
         });
       });
   }
@@ -152,7 +154,7 @@ class App extends Component {
   getTopArtistsRange(range) {
     spotify.getMyTopArtists({limit: 25, time_range: range}).then(result => {
       this.setState({
-        artists: result.items,
+        artists: result.items
       });
     });
   }
@@ -165,7 +167,7 @@ class App extends Component {
   getMyPlaylists() {
     spotify.getUserPlaylists({limit: 50}).then(result => {
       this.setState({
-        playlists: result.items,
+        playlists: result.items
       });
     });
   }
@@ -187,17 +189,29 @@ class App extends Component {
 
   /**
    * @author: Christopher Obando
-   * Uses the getMyCurrentPlayingTrack() method from spotify wrapper,
-   * returns an object containing the user's current playing track.
+   * Uses the current playback state to return the current playing
+   * track. Uses this info for the player.
+   */
+  getMyCurrent() {
+    this.setState({
+      current: this.state.playback.item
+    });
+  }
+
+  /**
+   * @author: Christopher Obando
+   * Uses the getMyCurrentPlayibackState() method from spotify wrapper,
+   * returns an object containing the user's current playback info.
    * This endpoint is in BETA according to the Spotify API website, so
    * it may go down randomly but I don't think this will be an issue.
    */
-  getMyCurrent() {
-    spotify.getMyCurrentPlayingTrack().then(result => {
+  getCurrentPlaybackState() {
+    spotify.getMyCurrentPlaybackState().then(result => {
       this.setState({
-        current: result.item
+        playback: result
       });
     });
+    this.getMyCurrent();
   }
 
   /**
@@ -243,6 +257,9 @@ class App extends Component {
                 <div className="route">
                   <div style={{paddingBottom: '10px'}} />
                   <HomeTab {...prop} state={this.state}/>
+                  <br/>
+                  <Filter {...prop} placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <Recent {...prop} state={this.state}/>
                 </div>
               )}/>
               <Route path="/playlists" render={(prop) => (
@@ -251,12 +268,6 @@ class App extends Component {
                   <PlaylistTab {...prop} state={this.state}/>
                 </div>
               )}/>     
-              <Route path="/recent" render={(prop) => (
-                <div className="route">
-                  <Filter {...prop} placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
-                  <RecentTab {...prop} state={this.state}/>
-                </div>
-              )}/>
               <Route path="/top" exact render={(prop) => (
                 <div className="route">
                   <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>

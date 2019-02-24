@@ -25,10 +25,18 @@ class Player extends Component {
         if (token) {
             spotify.setAccessToken(token);
         };
-        // this.state = {
-        //     playing: true
-        // }
+        this.state = {
+            playing: ""
+        };
     };
+
+    isPlaying() {
+        if(this.props.state.playback.is_playing) {
+            this.setState({playing: true})
+        } else {
+            this.setState({playing: false})
+        }
+    }
 
     /**
      * @author: Christopher Obando
@@ -41,14 +49,17 @@ class Player extends Component {
         return parsed;
     };
 
+    componentDidMount() {
+        this.isPlaying();
+        setInterval(() => this.isPlaying(), 500);
+    }
+
     render() {
         let current = this.props.state.current;
         return(
             <header className="player">
                 <div className="player-contents">
                     <div className="controls">
-                        <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='arrow-alt-circle-left' size='2x'/></button>
-                        <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='2x'/></button>
                         <a href={current.album.external_urls.spotify}
                             target="_blank" rel="noopener noreferrer">
                             <img src={current.album.images[0].url} className='pic' alt='album-cover'></img>
@@ -63,7 +74,11 @@ class Player extends Component {
                             <p>{current.artists[0].name}</p>
                         </a>
                         </div>
-                        <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='2x'/></button>
+                        <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='arrow-alt-circle-left' size='2x'/></button>
+                        {this.state.playing===false &&
+                            <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='2x'/></button>}
+                        {this.state.playing &&
+                            <button onClick={() => spotify.pause()}><FontAwesome name='pause-circle' size='2x'/></button>}
                         <button onClick={() => spotify.skipToNext()}><FontAwesome name='arrow-alt-circle-right' size='2x'/></button>
                     </div>
                 </div>

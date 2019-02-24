@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 
-// Styling
-
-
 // Components
 import Track from './Track';
 
-class HomeTab extends Component {
+class Recent extends Component {
     render() {
         let tracksToRender =
         this.props.state.recents
@@ -22,4 +19,4 @@ class HomeTab extends Component {
         );
     }
 }
-export default HomeTab;
+export default Recent;

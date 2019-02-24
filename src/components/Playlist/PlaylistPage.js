@@ -11,6 +11,7 @@ import queryString from 'query-string';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 import Track from '../Track';
+import Filter from '../Filter';
 
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
@@ -26,7 +27,8 @@ class Playlist extends Component {
 
     this.state = {
       playlist: '',
-      playlistTracks: ''
+      playlistTracks: '',
+      filterString: '',
     }
   };
   
@@ -46,6 +48,7 @@ class Playlist extends Component {
       playlist: this.props.location.state.playlist
     })
     this.getPlaylist();
+    setInterval(() => this.getPlaylist(), 1000);
   };
 
   getPlaylist() {
@@ -57,17 +60,27 @@ class Playlist extends Component {
   };
 
   render() {
+    let playlistsToRender = this.state.playlist &&
+      this.state.playlistTracks
+      ? this.state.playlistTracks.filter(track => {
+        let matchesTrack = track.track.name.toLowerCase().includes(
+          this.state.filterString.toLowerCase());
+        return matchesTrack;
+      }) : [];
+
     let playlist = this.state.playlist;
     return(
       <div>
-        {playlist && this.getPlaylist()}
         {playlist &&
           <div>
             <h1>{playlist.name}</h1>
             <br/>
+            <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
+            <br/>
           </div>}
+        {!this.state.playlistTracks && <h1>Loading...</h1>}
         {playlist && this.state.playlistTracks && 
-          this.state.playlistTracks.map((track, index) =><Track post={track.track} index={index}/>)}
+          playlistsToRender.map((track, index) =><Track post={track.track} index={index}/>)}
       </div>
     );
   }
