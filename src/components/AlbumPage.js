@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
@@ -78,13 +80,15 @@ class AlbumPage extends Component {
             <img src={album.images[0].url}
                 className='cover' alt='album-cover'/>
             <h1>{album.name}</h1>
-            <a style={{fontSize: '20px'}} href={album.artists[0].external_urls.spotify}
-              target="_blank" rel="noopener noreferrer">
-              <span className="bold"> {album.artists[0].name}</span>
-            </a>
+            <NavLink to={{pathname:"/artist_details",
+                            state:{artist: album.artists[0]}, search: window.location.search}}>
+              <span className="bold" style={{fontSize: '20px'}}> {album.artists[0].name}</span>
+            </NavLink>
             <br/><br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
-            <br/>
+            <button onClick={() => spotify.play({context_uri: album.uri})} className="play">
+            <FontAwesome name='random'/> Shuffle Album
+            </button>
           </div>}
         {!this.state.albumTracks && <h1>Loading...</h1>}
         {album && this.state.albumTracks && 

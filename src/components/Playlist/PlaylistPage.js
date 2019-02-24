@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
@@ -48,7 +49,7 @@ class Playlist extends Component {
       playlist: this.props.location.state.playlist
     })
     this.getPlaylist();
-    setInterval(() => this.getPlaylist(), 1000);
+    setInterval(() => this.getPlaylist(), 100);
   };
 
   getPlaylist() {
@@ -78,10 +79,13 @@ class Playlist extends Component {
             <h1>{playlist.name}</h1>
             <br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
-            <br/>
           </div>}
         {!this.state.playlistTracks && <h1>Loading...</h1>}
-        {playlist && this.state.playlistTracks && 
+        {playlist && this.state.playlistTracks &&
+          <div><button onClick={() => spotify.play({context_uri: playlist.uri})} className="play">
+            <FontAwesome name='random'/> Shuffle Playlist
+          </button></div>}
+        {playlist && this.state.playlistTracks &&
           tracksToRender.map((track, index) =><Track post={track.track} index={index}/>)}
       </div>
     );

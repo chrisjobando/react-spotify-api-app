@@ -28,6 +28,7 @@ import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
 import PlaylistPage from './components/Playlist/PlaylistPage';
 import AlbumPage from './components/AlbumPage';
+import ArtistPage from './components/ArtistPage';
 import Recent from './components/Recent';
 import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
@@ -89,7 +90,7 @@ class App extends Component {
     this.getMyRecents();
     this.getCurrentPlaybackState();
     this.getMyCurrent();
-    setInterval(() => this.getMyRecents(), 30000);
+    setInterval(() => this.getMyRecents(), 1000);
     setInterval(() => this.getCurrentPlaybackState(), 200);
   }
 
@@ -325,6 +326,11 @@ class App extends Component {
               <Route path="/album_details" render={(prop) => (
                 <div className="route">
                   <AlbumPage {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/artist_details" render={(prop) => (
+                <div className="route">
+                  <ArtistPage {...prop} state={this.state}/>
                 </div>
               )}/>
               <div style={{paddingBottom: '100px'}}></div>

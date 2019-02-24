@@ -68,10 +68,10 @@ class Player extends Component {
                     <div className="title">
                         <p className="bold">{current.name}</p>
                         <p>
-                            <a href={current.artists[0].external_urls.spotify}
-                                target="_blank" rel="noopener noreferrer">
+                            <NavLink to={{pathname:"/artist_details",
+                                state:{artist: current.artists[0]}, search: window.location.search}}>
                                 {current.artists[0].name}
-                            </a>
+                            </NavLink>
                         </p>
                     </div>
                     <div className="controls">

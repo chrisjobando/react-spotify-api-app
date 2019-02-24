@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 import '../styling/Artist.sass';
 
@@ -7,18 +8,15 @@ const Artist = (props) => {
         <div className="artist">
             <div key={props.post.id}>
                 <span>
-                    <a href={props.post.external_urls.spotify}
-                    target="_blank" rel="noopener noreferrer">
+                    <NavLink to={{pathname:"/artist_details",
+                        state:{artist: props.post}, search: window.location.search}}>
                         <img src={props.post.images[0].url}
                             className='pic' alt='artist-pic'></img>
-                    </a>
+                    </NavLink>
                 </span>
                 <br/>
                 <span className="info">
-                    <a href={props.post.external_urls.spotify}
-                        target="_blank" rel="noopener noreferrer">
-                        <span className="bold">{props.index+1}. {props.post.name}</span>
-                    </a>
+                    <span className="bold">{props.index+1}. {props.post.name}</span>
                 </span>
             </div>
         </div>
