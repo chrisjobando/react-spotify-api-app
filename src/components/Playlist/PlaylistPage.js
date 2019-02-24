@@ -60,7 +60,7 @@ class Playlist extends Component {
   };
 
   render() {
-    let playlistsToRender = this.state.playlist &&
+    let tracksToRender = this.state.playlist &&
       this.state.playlistTracks
       ? this.state.playlistTracks.filter(track => {
         let matchesTrack = track.track.name.toLowerCase().includes(
@@ -73,6 +73,8 @@ class Playlist extends Component {
       <div>
         {playlist &&
           <div>
+            <img src={playlist.images[0].url}
+              className='cover' alt='album-cover'/>
             <h1>{playlist.name}</h1>
             <br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
@@ -80,7 +82,7 @@ class Playlist extends Component {
           </div>}
         {!this.state.playlistTracks && <h1>Loading...</h1>}
         {playlist && this.state.playlistTracks && 
-          playlistsToRender.map((track, index) =><Track post={track.track} index={index}/>)}
+          tracksToRender.map((track, index) =><Track post={track.track} index={index}/>)}
       </div>
     );
   }

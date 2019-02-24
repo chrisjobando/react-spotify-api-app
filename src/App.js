@@ -27,6 +27,7 @@ import Player from './components/Player/Player';
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
 import PlaylistPage from './components/Playlist/PlaylistPage';
+import AlbumPage from './components/AlbumPage';
 import Recent from './components/Recent';
 import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
@@ -319,6 +320,11 @@ class App extends Component {
               <Route path="/playlist_details" render={(prop) => (
                 <div className="route">
                   <PlaylistPage {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/album_details" render={(prop) => (
+                <div className="route">
+                  <AlbumPage {...prop} state={this.state}/>
                 </div>
               )}/>
               <div style={{paddingBottom: '100px'}}></div>

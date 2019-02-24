@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {NavLink} from 'react-router-dom';
+
 // npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
 
@@ -41,11 +43,11 @@ class Track extends Component {
             <div className="track">
                 <div key={track.id}>
                     <span>
-                        <a href={track.album.external_urls.spotify}
-                        target="_blank" rel="noopener noreferrer">
-                            <img src={track.album.images[0].url}
-                                className='pic' alt='album-cover'></img>
-                        </a>
+                        <NavLink to={{pathname:"/album_details",
+                            state:{album: track.album}, search: window.location.search}}>
+                                <img src={track.album.images[0].url}
+                                className='pic' alt='album-cover'/>
+                        </NavLink>
                     </span>
                     <br/>
                     <span className="info">
