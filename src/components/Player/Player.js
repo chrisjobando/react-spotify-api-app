@@ -64,14 +64,13 @@ class Player extends Component {
                         <img src={current.album.images[0].url} className='pic' alt='album-cover'></img>
                     </a>
                     <div className="title">
-                        <a href={current.external_urls.spotify}
-                            target="_blank" rel="noopener noreferrer">
-                            <p className="bold">{current.name}</p>
-                        </a>
-                        <a href={current.artists[0].external_urls.spotify}
-                            target="_blank" rel="noopener noreferrer">
-                            <p>{current.artists[0].name}</p>
-                        </a>
+                        <p className="bold">{current.name}</p>
+                        <p>
+                            <a href={current.artists[0].external_urls.spotify}
+                                target="_blank" rel="noopener noreferrer">
+                                {current.artists[0].name}
+                            </a>
+                        </p>
                     </div>
                     <div className="controls">
                         <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='angle-left' size='2x'/></button>

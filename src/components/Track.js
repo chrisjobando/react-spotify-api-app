@@ -15,6 +15,26 @@ import '../styling/Track.sass';
 const spotify = new SpotifyWebApi();
 
 class Track extends Component {
+    constructor() {
+        super();
+        const params = this.getHashParams();
+        const token = params.access_token;
+        if (token) {
+            spotify.setAccessToken(token);
+        };
+    };
+
+    /**
+     * @author: Christopher Obando
+     * From: https://www.npmjs.com/package/query-string
+     * Obtains parameters from the URL
+     * @return Object with all querys
+     */
+    getHashParams() {
+        let parsed = queryString.parse(window.location.search);
+        return parsed;
+    };
+
     render() {
         let track = this.props.post;
         return(
@@ -29,11 +49,11 @@ class Track extends Component {
                     </span>
                     <br/>
                     <span className="info">
-                        <a href={track.external_urls.spotify}
-                            target="_blank" rel="noopener noreferrer">
-                            <span className="bold">{this.props.index+1}. </span>
+                        <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
+                            <span style={{fontWeight: 600}}>{this.props.index+1}. </span>
                             {track.name} <br/>
-                        </a>
+                        </button>
+                        <br/>
                         <a href={track.artists[0].external_urls.spotify}
                             target="_blank" rel="noopener noreferrer">
                             <span className="bold"> {track.artists[0].name}</span>

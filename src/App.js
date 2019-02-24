@@ -321,6 +321,7 @@ class App extends Component {
                   <PlaylistPage {...prop} state={this.state}/>
                 </div>
               )}/>
+              <div style={{paddingBottom: '100px'}}></div>
             </div>
           }
         </div>
