@@ -78,7 +78,11 @@ class AlbumPage extends Component {
             <img src={album.images[0].url}
                 className='cover' alt='album-cover'/>
             <h1>{album.name}</h1>
-            <br/>
+            <a style={{fontSize: '20px'}} href={album.artists[0].external_urls.spotify}
+              target="_blank" rel="noopener noreferrer">
+              <span className="bold"> {album.artists[0].name}</span>
+            </a>
+            <br/><br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
             <br/>
           </div>}
@@ -92,11 +96,6 @@ class AlbumPage extends Component {
                             <span style={{fontWeight: 600}}>{index+1}. </span>
                             {track.name} <br/>
                         </button>
-                        <br/>
-                        <a href={track.artists[0].external_urls.spotify}
-                            target="_blank" rel="noopener noreferrer">
-                            <span className="bold"> {track.artists[0].name}</span>
-                        </a>
                     </span>
                 </div>
             </div>)}
