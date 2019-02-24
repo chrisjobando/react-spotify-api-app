@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
 // Styling
@@ -59,10 +60,11 @@ class Player extends Component {
         return(
             <header className="player">
                 <div className="player-contents">
-                    <a href={current.album.external_urls.spotify}
-                        target="_blank" rel="noopener noreferrer">
-                        <img src={current.album.images[0].url} className='pic' alt='album-cover'></img>
-                    </a>
+                    <NavLink to={{pathname:"/album_details",
+                        state:{album: current.album}, search: window.location.search}}>
+                        <img src={current.album.images[0].url}
+                            className='pic' alt='album-cover'/>
+                    </NavLink>
                     <div className="title">
                         <p className="bold">{current.name}</p>
                         <p>

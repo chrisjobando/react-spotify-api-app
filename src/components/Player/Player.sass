@@ -19,23 +19,27 @@
         display: inline-flex
         position: absolute
         left: 52.5%
+        @media(max-width: 1250px)
+            left: 85%
         @media(max-width: 1000px)
             left: 80%
         @media(max-width: 750px)
             left: 75%
-        @media(max-width: 500px)
+        @media(max-width: 525px)
             left: 70%
+        @media(max-width: 425px)
+            left: 65%
         @media(max-width: 400px)
-            left: 60%
+            left: 55%
 
     .title
         width: 40%
+        @media(max-width: 1250px)
+            width: 80%
         @media(max-width: 1000px)
             width: 55%
         @media(max-width: 750px)
             width: 70%
-        @media(max-width: 550px)
-            width: 75%
         @media(max-width: 400px)
             width: 60%
         p
@@ -57,7 +61,7 @@
         font-size: 18px
         @media(max-width: 750px)
             font-size: 16px
-        @media(max-width: 500px)
+        @media(max-width: 525px)
             padding-left: 0
             font-size: 14px
     .bold
@@ -74,7 +78,8 @@
             transition: all .3s ease
         @media(min-width: 760px)
             padding-left: 15px
+            padding-right: 15px
             width: 150px
             padding-bottom: 100px
-        @media(max-width: 500px)
+        @media(max-width: 525px)
             display: none
