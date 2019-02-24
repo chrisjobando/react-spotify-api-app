@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
-import Filter from './Filter';
+import Album from './Album';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
@@ -49,8 +49,10 @@ class ArtistPage extends Component {
     componentDidMount() {
         this.getArtist();
         this.getTopTracks();
+        this.getAlbums();
         setInterval(() => this.getArtist(), 100);
         setInterval(() => this.getTopTracks(), 1000);
+        setInterval(() => this.getAlbums(), 1000);
     };
 
     getArtist() {
@@ -62,20 +64,34 @@ class ArtistPage extends Component {
     };
 
     getTopTracks() {
-        spotify.getArtistTopTracks(this.state.artist.id, 'ES', {limit: 25}).then(result => {
+        spotify.getArtistTopTracks(this.state.artist.id, 'ES').then(result => {
             this.setState({
                 artistTracks: result.tracks
             });
         });
     };
 
+    getAlbums() {
+      spotify.getArtistAlbums(this.state.artist.id, 'ES', {limit: 50}).then(result => {
+        this.setState({
+          artistAlbums: result.items
+        });
+      });
+    }
+
   render() {
-    let tracksToRender = this.state.artist &&
-      this.state.artistTracks
-      ? this.state.artistTracks.filter(track => {
-        let matchesTrack = track.name.toLowerCase().includes(
-          this.state.filterString.toLowerCase());
-        return matchesTrack;
+    let albumsToRender = this.state.artist &&
+      this.state.artistAlbums
+      ? this.state.artistAlbums.filter(album => {
+        let isAlbum = (album.album_type==="album")
+        return isAlbum;
+      }) : [];
+    
+    let restToRender = this.state.artist &&
+      this.state.artistAlbums
+      ? this.state.artistAlbums.filter(album => {
+        let isNotAlbum = (album.album_type==="single")
+        return isNotAlbum;
       }) : [];
 
     let artist = this.state.artist;
@@ -90,15 +106,15 @@ class ArtistPage extends Component {
                 <h1>{artist.name}</h1>
             </a>
             <br/>
-            <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
             {/* <button onClick={() => spotify.play({context_uri: artist.uri})} className="play">
             <FontAwesome name='random'/> Shuffle artist
             </button> */}
             <h1>Most Popular Tracks:</h1>
+            <br/>
           </div>}
         {!this.state.artistTracks && <h1>Loading...</h1>}
         {artist && this.state.artistTracks && 
-          tracksToRender.map((track, index) =>
+          this.state.artistTracks.map((track, index) =>
             <div className="list">
                 <div key={track.id}>
                     <span className="info-topTrack">
@@ -114,6 +130,16 @@ class ArtistPage extends Component {
                     </span>
                 </div>
             </div>)}
+            <h1>Albums</h1>
+            <br/>
+            {!this.state.artistAlbums && <h1>Loading...</h1>}
+            {artist && this.state.artistAlbums && 
+              albumsToRender.map((album) => <Album album={album} key={album.id}/>)}
+            <h1>Singles and EPs</h1>
+            <br/>
+            {!this.state.artistAlbums && <h1>Loading...</h1>}
+            {artist && this.state.artistAlbums && 
+              restToRender.map((album) => <Album album={album} key={album.id}/>)}
       </div>
     );
   }
