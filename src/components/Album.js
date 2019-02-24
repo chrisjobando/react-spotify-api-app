@@ -14,7 +14,8 @@ class Album extends Component {
             alt='Album Cover'/>
         </NavLink>
         <br/>
-       <h3 style={{fontWeight: '500'}}>{album.name}</h3>
+       <h3 style={{fontWeight: '500'}} className="album-name">{album.name}</h3>
+       <h5>{album.release_date.substring(0,4)}</h5>
       </div>
     );
   }

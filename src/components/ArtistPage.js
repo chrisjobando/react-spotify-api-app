@@ -64,7 +64,7 @@ class ArtistPage extends Component {
     };
 
     getTopTracks() {
-        spotify.getArtistTopTracks(this.state.artist.id, 'ES').then(result => {
+        spotify.getArtistTopTracks(this.state.artist.id, 'US').then(result => {
             this.setState({
                 artistTracks: result.tracks
             });
@@ -72,7 +72,7 @@ class ArtistPage extends Component {
     };
 
     getAlbums() {
-      spotify.getArtistAlbums(this.state.artist.id, 'ES', {limit: 50}).then(result => {
+      spotify.getArtistAlbums(this.state.artist.id, {limit: 50}).then(result => {
         this.setState({
           artistAlbums: result.items
         });

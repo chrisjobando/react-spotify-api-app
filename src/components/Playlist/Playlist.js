@@ -10,7 +10,7 @@ class Playlist extends Component {
         <NavLink to={{pathname:"/playlist_details",
           state:{playlist: playlist}, search: window.location.search}}>
           <img src={playlist.images[0].url}
-            className='album-cover'
+            className='playlist-cover'
             alt='Album Cover'/>
         </NavLink>
         <br/>

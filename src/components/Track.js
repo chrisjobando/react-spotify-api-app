@@ -46,7 +46,7 @@ class Track extends Component {
                             <img src={track.album.images[0].url}
                                 className='album-cover' alt='album-cover'/>
                         </NavLink>
-                        <span style={{marginTop: '10px'}}>
+                        <span>
                             <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
                                 <span style={{fontWeight: 600}}>{this.props.index+1}. </span>
                                 {track.name}<br/>
