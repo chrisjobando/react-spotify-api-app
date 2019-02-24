@@ -16,10 +16,14 @@ class HomeTab extends Component {
                     <FollowerCounter followers={this.props.state.user.followers.total} />
                     <PlaylistCounter numPlaylists={this.props.state.playlists.length} />
                 </header>
-                <h1>Welcome to My Spotify Web App!</h1>
-                <h2>This is in its early stages, so be patient while I read 
-                    a LOT of documentation and experiment with Sass to implement
-                    my vision.</h2>
+                <h1 style={{color: 'rgb(138, 201, 38)'}}>Welcome to My Spotify Web App!</h1>
+                <h2>This is in its early stages, but feel free to try it out!</h2>
+                <br/>
+                <h2>Made by: Christopher Obando</h2>
+                <a href="https://open.spotify.com/user/chrisjobando"
+                target="_blank" rel="noopener noreferrer"><h2>Link To My Spotify</h2></a>
+                <a href="https://github.com/chrisjobando/spotify-app"
+                target="_blank" rel="noopener noreferrer"><h2>Link To Source Code</h2></a>
                 <br/>
                 <h1>Recently Played:</h1>
             </div>
