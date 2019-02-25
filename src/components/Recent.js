@@ -14,7 +14,7 @@ class Recent extends Component {
           }) : [];
         return(
             <div>
-                {tracksToRender.map((track, index) =><Track post={track.track} index={index} key={track.id}/>)}
+                {tracksToRender.map((track, index) =><Track current={this.props.state.current} post={track.track} index={index} key={track.id}/>)}
           </div>
         );
     }

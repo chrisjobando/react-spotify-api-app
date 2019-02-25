@@ -96,7 +96,7 @@ class Search extends Component {
             {this.props.state.filterString && this.state.tracks &&
                 <div>
                     <h1> Songs:</h1>
-                    {this.state.tracks.map((track, index) =><Track post={track} index={index}/>)}
+                    {this.state.tracks.map((track, index) =><Track current={this.props.state.current} post={track} index={index}/>)}
                 </div>}
             {this.props.state.filterString && this.state.albums &&
                 <div>

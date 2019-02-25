@@ -17,7 +17,7 @@ import Filter from '../Filter';
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
 
-class Playlist extends Component {
+class PlaylistPage extends Component {
   constructor() {
     super();
     const params = this.getHashParams();
@@ -91,8 +91,11 @@ class Playlist extends Component {
         {playlist && this.state.playlistTracks &&
           tracksToRender.map((track, index) =>
             <div className="list">
-              <div key={track.id}>
+              <div key={track.track.id}>
                 <span className="info-topTrack">
+                  {this.props.state.current &&
+                    this.props.state.current.id===track.track.id &&
+                    <p style={{marginRight: "10px", color: "rgb(255, 202, 58)"}}>></p>}
                   <NavLink to={{pathname:"/album_details",
                     state:{album: track.track.album}, search: this.props.location.search}}>
                     <img src={track.track.album.images[0].url}
@@ -120,4 +123,4 @@ class Playlist extends Component {
   }
 }
 
-export default Playlist;
+export default PlaylistPage;

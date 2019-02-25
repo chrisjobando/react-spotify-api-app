@@ -14,7 +14,7 @@ class TopTab extends Component {
       }) : [];
     return(
       <div>
-        {tracksToRender.map((track, index) =><Track post={track} index={index}/>)}
+        {tracksToRender.map((track, index) =><Track current={this.props.state.current} post={track} index={index}/>)}
       </div>
     );
   }
