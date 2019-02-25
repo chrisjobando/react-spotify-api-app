@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
@@ -11,7 +12,6 @@ import queryString from 'query-string';
  */
 import SpotifyWebApi from 'spotify-web-api-js';
 
-import Track from '../Track';
 import Filter from '../Filter';
 
 // Instantiates the wrapper
@@ -82,11 +82,39 @@ class Playlist extends Component {
           </div>}
         {!this.state.playlistTracks && <h1>Loading...</h1>}
         {playlist && this.state.playlistTracks &&
-          <div><button onClick={() => spotify.play({context_uri: playlist.uri})} className="play">
+          <div><button onClick={() => {
+            spotify.play({context_uri: playlist.uri});
+            spotify.setShuffle(true);
+          }} className="play">
             <FontAwesome name='random'/> Shuffle Playlist
           </button></div>}
         {playlist && this.state.playlistTracks &&
-          tracksToRender.map((track, index) =><Track post={track.track} index={index}/>)}
+          tracksToRender.map((track, index) =>
+            <div className="list">
+              <div key={track.id}>
+                <span className="info-topTrack">
+                  <NavLink to={{pathname:"/album_details",
+                    state:{album: track.track.album}, search: this.props.location.search}}>
+                    <img src={track.track.album.images[0].url}
+                      className='album-cover' alt='album-cover'/>
+                  </NavLink>
+                  <span>
+                    <button onClick={() => {
+                      spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}});
+                      spotify.setShuffle(false);
+                    }}>
+                      <span style={{fontWeight: 600}}>{index+1}. </span>
+                        {track.track.name}<br/>
+                    </button>
+                    <br/>
+                    <NavLink to={{pathname:"/artist_details",
+                      state:{artist: track.track.artists[0]}, search: this.props.location.search}}>
+                      <span className="bold">{track.track.artists[0].name}</span>
+                    </NavLink>
+                  </span>
+                </span>
+              </div>
+            </div>)}
       </div>
     );
   }

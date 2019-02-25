@@ -86,7 +86,10 @@ class AlbumPage extends Component {
             </NavLink>
             <br/><br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
-            <button onClick={() => spotify.play({context_uri: album.uri})} className="play">
+            <button onClick={() => {
+              spotify.play({context_uri: album.uri});
+              spotify.setShuffle(true);
+              }} className="play">
             <FontAwesome name='random'/> Shuffle Album
             </button>
           </div>}
@@ -96,7 +99,10 @@ class AlbumPage extends Component {
             <div className="list">
                 <div key={track.id}>
                     <span className="info">
-                        <button onClick={() => spotify.play({context_uri: album.uri, offset: {uri: track.uri}})}>
+                        <button onClick={() => {
+                          spotify.play({context_uri: album.uri, offset: {uri: track.uri}});
+                          spotify.setShuffle(false);
+                        }}>
                             <span style={{fontWeight: 600}}>{index+1}. </span>
                             {track.name} <br/>
                         </button>
