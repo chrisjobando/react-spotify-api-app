@@ -24,6 +24,7 @@ import Filter from './components/Filter';
 import Player from './components/Player/Player';
 
 // Tabs
+import Search from './components/Search';
 import HomeTab from './components/HomeTab';
 import PlaylistTab from './components/PlaylistTab';
 import PlaylistPage from './components/Playlist/PlaylistPage';
@@ -261,6 +262,12 @@ class App extends Component {
                   <HomeTab {...prop} state={this.state}/>
                   <br/>
                   <Recent {...prop} state={this.state}/>
+                </div>
+              )}/>
+              <Route path="/search" render={(prop) => (
+                <div className="route">
+                  <Filter {...prop} placeholder={"Search for a song, artist, or album..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <Search {...prop} state={this.state}/>
                 </div>
               )}/>
               <Route path="/playlists" render={(prop) => (
