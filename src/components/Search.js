@@ -85,13 +85,12 @@ class Search extends Component {
                 playlists: result.playlists.items
             })
         })
-        console.log(this.state.playlists);
     }
 
 
     render() {
         return(
-        <div style={{height: '80vh'}}>
+        <div className="searchTab">
             {this.props.state.filterString && this.state.tracks &&
                 <div>
                     <h1> Songs:</h1>
