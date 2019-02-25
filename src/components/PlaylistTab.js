@@ -4,6 +4,7 @@ import Playlist from './Playlist/Playlist';
 class PlaylistTab extends Component {
     componentDidMount() {
       window.scrollTo(0,0);
+      this.props.state.filterString = '';
     }
     render() {
         let playlistsToRender =

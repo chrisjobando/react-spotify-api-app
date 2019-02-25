@@ -4,6 +4,10 @@ import {NavLink} from 'react-router-dom';
 import '../styling/TopTab.sass';
 
 class TopTab extends Component {
+  componentDidMount() {
+    this.props.state.filterString = '';
+  }
+
   render() {
     return(
       <div style={{height: '50vh'}}>

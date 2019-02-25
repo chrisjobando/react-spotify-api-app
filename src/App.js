@@ -278,7 +278,6 @@ class App extends Component {
               )}/>     
               <Route path="/top" exact render={(prop) => (
                 <div className="route">
-                  <Filter {...prop} placeholder={"Search for an artist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <TopTab {...prop} state={this.state}/>
                 </div>
               )}/>

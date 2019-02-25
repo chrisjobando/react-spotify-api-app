@@ -46,6 +46,7 @@ class Search extends Component {
 
     componentDidMount() {
         window.scrollTo(0,0);
+        this.props.state.filterString = '';
         this.getSearchTracks();
         this.getSearchAlbums();
         this.getSearchArtists();

@@ -49,7 +49,7 @@ class Track extends Component {
     render() {
         let track = this.props.post;
         return(
-            <divdiv className="list">
+            <div className="list">
                 <div key={track.id}>
                     <span className="info-topTrack" style={{width: '95%', marginLeft: '30px'}}>
                         {this.props.current && 
@@ -74,7 +74,7 @@ class Track extends Component {
                         </span>
                     </span>
                 </div>
-            </divdiv>
+            </div>
         );
     }
 }
