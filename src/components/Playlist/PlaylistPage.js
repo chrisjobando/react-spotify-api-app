@@ -52,6 +52,11 @@ class PlaylistPage extends Component {
     setInterval(() => this.getPlaylist(), 100);
   };
 
+  /**
+   * @author: Christopher Obando
+   * Uses getPlaylistTracks() method from Spotify wrapper to return first 100 tracks
+   * in a playlist, given its ID
+   */
   getPlaylist() {
     spotify.getPlaylistTracks(this.state.playlist.id).then(result => {
       this.setState({
@@ -59,6 +64,17 @@ class PlaylistPage extends Component {
       });
     });
   };
+
+  /**
+   * From: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+   * Method to turn track.duration_ms into minutes:seconds for display
+   * @param millis time in ms to convert to minutes and seconds 
+   */
+  millisToMinutesAndSeconds(millis) {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
 
   render() {
     let tracksToRender = this.state.playlist &&
@@ -101,7 +117,7 @@ class PlaylistPage extends Component {
                     <img src={track.track.album.images[0].url}
                       className='album-cover' alt='album-cover'/>
                   </NavLink>
-                  <span>
+                  <span style={{width: '100%'}}>
                     <button onClick={() => {
                       spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}});
                       spotify.setShuffle(false);
@@ -114,6 +130,7 @@ class PlaylistPage extends Component {
                       state:{artist: track.track.artists[0]}, search: this.props.location.search}}>
                       <span className="bold">{track.track.artists[0].name}</span>
                     </NavLink>
+                    <span className="track-length" style={{float: 'right'}}>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</span>
                   </span>
                 </span>
               </div>

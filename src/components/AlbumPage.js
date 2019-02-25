@@ -55,6 +55,10 @@ class AlbumPage extends Component {
     setInterval(() => this.getAlbum(), 100);
   };
 
+  /**
+   * @author: Christopher Obando
+   * Uses getAlbumTracks() method from spotify wrapper to get up to 50 tracks from an album
+   */
   getAlbum() {
     spotify.getAlbumTracks(this.state.album.id, {limit: 50, include_groups: "album,single"}).then(result => {
       this.setState({
@@ -62,6 +66,17 @@ class AlbumPage extends Component {
       });
     });
   };
+
+  /**
+   * From: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+   * Method to turn track.duration_ms into minutes:seconds for display
+   * @param millis time in ms to convert to minutes and seconds 
+   */
+  millisToMinutesAndSeconds(millis) {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
 
   render() {
     let tracksToRender = this.state.album &&
@@ -98,7 +113,7 @@ class AlbumPage extends Component {
           tracksToRender.map((track, index) =>
             <div className="list">
                 <div key={track.id}>
-                    <span className="info">
+                    <span className="info" style={{width: '100%'}}>
                         {this.props.state.current &&
                           this.props.state.current.id===track.id &&
                           <p style={{marginRight: "10px", color: "rgb(255, 202, 58)"}}>></p>}
@@ -109,6 +124,7 @@ class AlbumPage extends Component {
                             <span style={{fontWeight: 600}}>{index+1}. </span>
                             {track.name} <br/>
                         </button>
+                        <span style={{float: 'right'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>
                 </div>
             </div>)}

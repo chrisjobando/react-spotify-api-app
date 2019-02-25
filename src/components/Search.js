@@ -95,12 +95,12 @@ class Search extends Component {
             {!this.state.tracks && <h2>This is currently very buggy and may crash, be warned!</h2>}
             {this.props.state.filterString && this.state.tracks &&
                 <div>
-                    <h1> Songs:</h1>
+                    <h1>Songs:</h1>
                     {this.state.tracks.map((track, index) =><Track current={this.props.state.current} post={track} index={index}/>)}
                 </div>}
             {this.props.state.filterString && this.state.albums &&
                 <div>
-                    <h1> Albums:</h1>
+                    <h1>Albums:</h1>
                     <br/>
                     {this.state.albums.map((album) =>
                         <div className='album-grid' key={album.id}>
@@ -117,7 +117,7 @@ class Search extends Component {
                 </div>}
             {this.props.state.filterString && this.state.artists &&
                 <div>
-                    <h1> Artists:</h1>
+                    <h1>Artists:</h1>
                     {this.state.artists.map((artist) =>
                         <div style={{textAlign: 'left', paddingLeft: '25px'}}>
                             <span>
@@ -134,7 +134,7 @@ class Search extends Component {
                 </div>}
             {this.props.state.filterString && this.state.playlists &&
                 <div>
-                    <h1> Playlists:</h1>
+                    <h1>Playlists:</h1>
                     <br/>
                     {this.state.playlists.map((playlist) =>
                         <div className='playlist-grid-2' key={playlist.id} style={{marginBottom: '80px'}}>

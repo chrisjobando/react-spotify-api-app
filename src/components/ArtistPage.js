@@ -55,6 +55,11 @@ class ArtistPage extends Component {
         setInterval(() => this.getAlbums(), 100);
     };
 
+    /**
+     * @author: Christopher Obando
+     * Fetches an artists info using the getArtist() method from the spotify wrapper,
+     * given their ID
+     */
     getArtist() {
         spotify.getArtist(this.props.location.state.artist.id).then(result => {
             this.setState({
@@ -63,6 +68,10 @@ class ArtistPage extends Component {
         });
     };
 
+    /**
+     * @author: Christopher Obando
+     * Fetches an artists' top ten tracks given their ID and a marketplace
+     */
     getTopTracks() {
         spotify.getArtistTopTracks(this.state.artist.id, 'US').then(result => {
             this.setState({
@@ -71,6 +80,10 @@ class ArtistPage extends Component {
         });
     };
 
+    /**
+     * @author: Christopher Obando
+     * Fetches an artists 50 most recent albums given their ID
+     */
     getAlbums() {
       spotify.getArtistAlbums(this.state.artist.id, {limit: 50}).then(result => {
         this.setState({
@@ -78,6 +91,17 @@ class ArtistPage extends Component {
         });
       });
     }
+
+  /**
+   * From: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+   * Method to turn track.duration_ms into minutes:seconds for display
+   * @param millis time in ms to convert to minutes and seconds 
+   */
+  millisToMinutesAndSeconds(millis) {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
 
   render() {
     let albumsToRender = this.state.artist &&
@@ -130,6 +154,7 @@ class ArtistPage extends Component {
                             <span style={{fontWeight: 600}}>{index+1}. </span>
                             {track.name}<br/>
                         </button>
+                        <span style={{float: 'right', marginTop: '20px'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>
                 </div>
             </div>)}
