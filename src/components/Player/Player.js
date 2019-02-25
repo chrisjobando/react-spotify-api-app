@@ -27,7 +27,8 @@ class Player extends Component {
             spotify.setAccessToken(token);
         };
         this.state = {
-            playing: ""
+            playing: "",
+            shuffle: ""
         };
     };
 
@@ -38,6 +39,15 @@ class Player extends Component {
             this.setState({playing: false})
         }
     }
+
+    isShuffle() {
+        if(this.props.state.playback.shuffle_state) {
+            this.setState({shuffle: true})
+        } else {
+            this.setState({shuffle: false})
+        }
+    }
+
 
     /**
      * @author: Christopher Obando
@@ -52,7 +62,9 @@ class Player extends Component {
 
     componentDidMount() {
         this.isPlaying();
+        this.isShuffle();
         setInterval(() => this.isPlaying(), 500);
+        setInterval(() => this.isShuffle(), 500);
     }
 
     render() {
@@ -75,6 +87,8 @@ class Player extends Component {
                         </p>
                     </div>
                     <div className="controls">
+                        {this.state.shuffle && <button style={{color: 'green', fontSize: '24px'}} onClick={() => spotify.setShuffle(false)}><FontAwesome name='random'/></button>}
+                        {!this.state.shuffle && <button style={{fontSize: '24px'}} onClick={() => spotify.setShuffle(true)}><FontAwesome name='random'/></button>}
                         <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='angle-left' size='2x'/></button>
                         {this.state.playing===false &&
                             <button onClick={() => spotify.play()}><FontAwesome name='play-circle' size='3x'/></button>}
