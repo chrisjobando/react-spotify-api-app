@@ -17,10 +17,25 @@
         height: 50px
         margin-right: 15px
 
+.info-topTrack-2
+    display: inline-flex
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    width: 95%
+    margin-left: 30px
+    .album-cover
+        border-radius: 0
+        width: 50px
+        height: 50px
+        margin-right: 15px
+    @media(max-width: 750px)
+        margin-left: 0
+
 .track-length
     @media(max-width: 900px)
         display: none
     @media(max-width: 750px)
         display: inline-flex
-    @media(max-width: 700px)
+    @media(max-width: 500px)
         display: none
