@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
-// import FontAwesome from 'react-fontawesome';
+import FontAwesome from 'react-fontawesome';
 import Album from './Album';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
@@ -153,14 +153,14 @@ class ArtistPage extends Component {
                               spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})
                               spotify.setShuffle(false)}}>
                             <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{index+1}. </span>
-                            <span style={{color: 'rgb(255, 202, 58)'}}>{track.name}</span>
+                            <span style={{color: 'rgb(255, 202, 58)'}}>{track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}</span>
                           </button>}
                         {this.props.state.current && this.props.state.current.id!==track.id &&
                           <button onClick={() => {
                               spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})
                               spotify.setShuffle(false)}}>
                             <span style={{fontWeight: 600}}>{index+1}. </span>
-                            {track.name}
+                            {track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
                           </button>}
                         <span style={{float: 'right', marginTop: '20px'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>

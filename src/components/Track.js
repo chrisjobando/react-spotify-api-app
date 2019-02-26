@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
@@ -60,17 +61,17 @@ class Track extends Component {
                     {this.props.current && this.props.current.id===track.id &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
                             <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{this.props.index+1}. </span>
-                            <span style={{color: 'rgb(255, 202, 58)'}}>{track.name}</span>
+                            <span style={{color: 'rgb(255, 202, 58)'}}>{track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}</span>
                         </button>}
                     {!this.props.current &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
                             <span style={{fontWeight: 600}}>{this.props.index+1}. </span>
-                            {track.name} 
+                            {track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
                         </button>}
                     {this.props.current && this.props.current.id!==track.id &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
                             <span style={{fontWeight: 600}}>{this.props.index+1}. </span>
-                            {track.name} 
+                            {track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
                         </button>}
                     <span style={{float: 'right'}}>
                         {this.millisToMinutesAndSeconds(track.duration_ms)}
