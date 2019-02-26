@@ -264,7 +264,7 @@ class App extends Component {
                   <Recent {...prop} state={this.state}/>
                 </div>
               )}/>
-              <Route path="/search" render={(prop) => (
+              <Route path="/browse" render={(prop) => (
                 <div className="route">
                   <Filter {...prop} placeholder={"Search for a song, artist, or album..."} onTextChange={text => this.setState({filterString: text})}/>
                   <Search {...prop} state={this.state}/>

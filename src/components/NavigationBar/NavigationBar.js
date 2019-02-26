@@ -13,7 +13,7 @@ const navDrawer = props => {
     <nav className={barClasses}>
       <ul>
         <li><NavLink to={{pathname: '/', search: window.location.search}} exact activeClassName="active">Home</NavLink></li>
-        <li><NavLink to={{pathname: '/search', search: window.location.search}} activeClassName="active">Search</NavLink></li>
+        <li><NavLink to={{pathname: '/browse', search: window.location.search}} activeClassName="active">Browse</NavLink></li>
         <li><NavLink to={{pathname: '/playlists', search: window.location.search}} activeClassName="active">My Playlists</NavLink></li>
         <li><NavLink to={{pathname: '/top', search: window.location.search}} activeClassName="active">My Stats</NavLink></li>      </ul>
     </nav>

@@ -69,8 +69,13 @@
 
     button,a
         color: #fff
+    a
         &:hover
             color: rgb(255, 202, 58)
+            transition: all 0.6 ease
+    button
+        &:hover
+            color: green
             transition: all 0.6s ease
 
     p
@@ -92,7 +97,7 @@
     img
         width: 50px
         border-radius: 0
-        border: 3px solid rgb(255, 202, 58)
+        border: 3px solid green
         &:hover
             filter: brightness(50%)
             transition: all .3s ease

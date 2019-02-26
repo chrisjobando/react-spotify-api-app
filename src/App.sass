@@ -10,7 +10,7 @@ body
   background: rgb(138, 201, 38)
   color: #000
   border: none
-  border-radius: 0.5rem
+  border-radius: 2rem
   position: relative
   height: 60px
   font-weight: 400
@@ -24,7 +24,7 @@ body
     content: ''
     position: absolute
     top: 0
-    right: 0
+    right: 1.3rem
     height: 2px
     width: 0
     background: rgb(138, 201, 38)
@@ -32,10 +32,10 @@ body
   &:after
     right: inherit
     top: inherit
-    left: 0
+    left: 1.3rem
     bottom: 0
   &:hover:before, &:hover:after
-    width: 100%
+    width: 82%
     transition: 800ms ease all
 
 
@@ -70,6 +70,7 @@ a
       font-weight: 400
       color: #fff
       border: none
+      border-radius: 2rem
       padding: 0 1rem
       
       @media(max-width: 500px)
@@ -85,28 +86,6 @@ a
   padding-left: 220px
   @media(max-width: 750px)
     padding-left: 0
-
-.refresh
-    margin-bottom: 35px
-
-    button
-        background-color: #000
-        border: none
-        color: #fff
-        padding: 15px 32px
-        text-align: center
-        text-decoration: none
-        display: inline-block
-        font-size: 18px
-        font-weight: 400
-        margin-right: 15px
-        border-radius: 0.5rem
-        &:hover
-            color: rgb(255, 202, 58)
-        @media(max-width: 750px)
-            font-size: 16px
-            margin-bottom: 10px
-            padding: 15px 10px
 
 .searchTab
   height: 100vh
