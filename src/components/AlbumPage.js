@@ -116,7 +116,7 @@ class AlbumPage extends Component {
                     <span className="info" style={{width: '100%'}}>
                         {this.props.state.current &&
                           this.props.state.current.id===track.id &&
-                          <p style={{marginRight: "10px", color: "rgb(255, 202, 58)"}}>></p>}
+                          <p style={{marginRight: "10px", color: "lightgreen"}}>></p>}
                         <button onClick={() => {
                           spotify.play({context_uri: album.uri, offset: {uri: track.uri}});
                           spotify.setShuffle(false);

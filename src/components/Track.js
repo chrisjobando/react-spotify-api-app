@@ -54,7 +54,7 @@ class Track extends Component {
                     <span className="info-topTrack">
                         {this.props.current && 
                             (this.props.current.id===track.id) &&
-                            <p style={{marginRight: "10px", color: "rgb(255, 202, 58)"}}>></p>}
+                            <p style={{marginRight: "10px", color: "lightgreen"}}>></p>}
                         <NavLink to={{pathname:"/album_details",
                             state:{album: track.album}, search: window.location.search}}>
                             <img src={track.album.images[0].url}

@@ -15,8 +15,6 @@ import SpotifyWebApi from 'spotify-web-api-js';
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
 
-// import '../styling/Search.sass';
-
 class Search extends Component {
     constructor() {
         super();
@@ -119,6 +117,7 @@ class Search extends Component {
             {this.props.state.filterString && this.state.artists &&
                 <div>
                     <h1>Artists:</h1>
+                    <br/>
                     {this.state.artists.map((artist) =>
                         <div style={{textAlign: 'left', paddingLeft: '25px'}}>
                             <span>
@@ -138,7 +137,7 @@ class Search extends Component {
                     <h1>Playlists:</h1>
                     <br/>
                     {this.state.playlists.map((playlist) =>
-                        <div className='playlist-grid-2' key={playlist.id} style={{marginBottom: '80px'}}>
+                        <div className='playlist-grid-2' key={playlist.id}>
                             <NavLink to={{pathname:"/playlist_details",
                             state:{playlist: playlist}, search: this.props.location.search}}>
                             <img src={playlist.images[0].url}

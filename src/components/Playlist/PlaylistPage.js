@@ -111,7 +111,7 @@ class PlaylistPage extends Component {
                 <span className="info-topTrack">
                   {this.props.state.current &&
                     this.props.state.current.id===track.track.id &&
-                    <p style={{marginRight: "10px", color: "rgb(255, 202, 58)"}}>></p>}
+                    <p style={{marginRight: "10px", color: "lightgreen"}}>></p>}
                   <NavLink to={{pathname:"/album_details",
                     state:{album: track.track.album}, search: this.props.location.search}}>
                     <img src={track.track.album.images[0].url}
