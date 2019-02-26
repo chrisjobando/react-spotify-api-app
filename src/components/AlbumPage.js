@@ -129,7 +129,7 @@ class AlbumPage extends Component {
                         <span style={{fontWeight: 600}}>{index+1}. </span>
                         {track.name}
                       </button>}
-                      <span style={{float: 'right'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
+                      <span style={{float: 'right', marginTop: '10px'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>
                 </div>
             </div>)}
