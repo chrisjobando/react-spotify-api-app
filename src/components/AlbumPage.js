@@ -99,6 +99,7 @@ class AlbumPage extends Component {
                             state:{artist: album.artists[0]}, search: window.location.search}}>
               <span className="bold" style={{fontSize: '24px'}}> {album.artists[0].name}</span>
             </NavLink>
+            <h3 style={{margin: 0, fontWeight: '400'}}>{album.release_date.substring(0,4)}</h3>
             <br/><br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
             <button onClick={() => {
