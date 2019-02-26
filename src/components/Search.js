@@ -95,12 +95,14 @@ class Search extends Component {
             {this.props.state.filterString && this.state.tracks &&
                 <div>
                     <h1>Songs:</h1>
+                    {this.state.tracks.length===0 && <h2>No Songs Found</h2>}
                     {this.state.tracks.map((track, index) =><Track current={this.props.state.current} post={track} index={index}/>)}
                 </div>}
             {this.props.state.filterString && this.state.albums &&
                 <div>
                     <h1>Albums:</h1>
                     <br/>
+                    {this.state.albums.length===0 && <h2>No Albums Found</h2>}
                     {this.state.albums.map((album) =>
                         <div className='album-grid' key={album.id}>
                             <NavLink to={{pathname:"/album_details",
@@ -118,6 +120,7 @@ class Search extends Component {
                 <div>
                     <h1>Artists:</h1>
                     <br/>
+                    {this.state.artists.length===0 && <h2>No Artists Found</h2>}
                     {this.state.artists.map((artist) =>
                         <div style={{textAlign: 'left', paddingLeft: '25px'}}>
                             <span>
@@ -136,6 +139,7 @@ class Search extends Component {
                 <div>
                     <h1>Playlists:</h1>
                     <br/>
+                    {this.state.playlists.length===0 && <h2>No Playlists Found</h2>}
                     {this.state.playlists.map((playlist) =>
                         <div className='playlist-grid-2' key={playlist.id}>
                             <NavLink to={{pathname:"/playlist_details",
