@@ -31,7 +31,6 @@ class ArtistPage extends Component {
         this.state = {
             artist: '',
             artistTracks: '',
-            filterString: '',
         }
     };
   
@@ -163,11 +162,6 @@ class ArtistPage extends Component {
                             <span style={{fontWeight: 600}}>{index+1}. </span>
                             {track.name}
                           </button>}
-
-
-
-
-
                         <span style={{float: 'right', marginTop: '20px'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>
                 </div>
