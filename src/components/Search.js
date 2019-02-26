@@ -91,7 +91,7 @@ class Search extends Component {
     render() {
         return(
         <div className="searchTab">
-            {!this.state.tracks && <h2>This is currently very buggy and may crash, be warned!</h2>}
+            {!this.props.state.filterString && <h2>This is currently very buggy and may crash, be warned!</h2>}
             {this.props.state.filterString && this.state.tracks &&
                 <div>
                     <h1>Songs:</h1>
