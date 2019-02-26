@@ -51,7 +51,7 @@ class Track extends Component {
         return(
             <div className="list">
                 <div key={track.id}>
-                    <span className="info-topTrack-2">
+                    <span className="info-topTrack">
                         {this.props.current && 
                             (this.props.current.id===track.id) &&
                             <p style={{marginRight: "10px", color: "rgb(255, 202, 58)"}}>></p>}
