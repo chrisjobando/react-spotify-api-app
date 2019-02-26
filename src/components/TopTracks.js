@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import Track from './Track';
 import '../styling/TopTab.sass';
 
-class TopTab extends Component {
+class TopTracks extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+    this.props.state.filterString = '';
+  }
 
   render() {
     let tracksToRender =
@@ -19,4 +23,4 @@ class TopTab extends Component {
     );
   }
 }
-export default TopTab;
+export default TopTracks;

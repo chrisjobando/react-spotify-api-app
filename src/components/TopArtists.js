@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import Artist from './Artist';
 import '../styling/TopTab.sass';
 
-class TopTab extends Component {
+class TopArtists extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+    this.props.state.filterString = '';
+  }
+
   render() {
     let artistsToRender =
     this.props.state.artists
@@ -18,4 +23,4 @@ class TopTab extends Component {
     );
   }
 }
-export default TopTab;
+export default TopArtists;

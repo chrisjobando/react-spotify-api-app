@@ -141,11 +141,11 @@ class Search extends Component {
                     <br/>
                     {this.state.playlists.length===0 && <h2>No Playlists Found</h2>}
                     {this.state.playlists.map((playlist) =>
-                        <div className='playlist-grid-2' key={playlist.id}>
+                        <div className='playlist-grid' key={playlist.id}>
                             <NavLink to={{pathname:"/playlist_details",
                             state:{playlist: playlist}, search: this.props.location.search}}>
                             <img src={playlist.images[0].url}
-                                className='playlist-cover-2'
+                                className='playlist-cover'
                                 alt='Album Cover'/>
                             </NavLink>
                             <br/>
