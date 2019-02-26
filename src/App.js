@@ -338,7 +338,8 @@ class App extends Component {
                   <ArtistPage {...prop} state={this.state}/>
                 </div>
               )}/>
-              <div style={{paddingBottom: '100px'}}></div>
+              <div style={{paddingBottom: '30px'}}></div>
+              {this.state.current && <div style={{paddingBottom: '70px'}}></div>}
             </div>
           }
         </div>

@@ -15,7 +15,7 @@ class PlaylistTab extends Component {
             return matchesPlaylist;
           }) : [];
         return(
-          <div style={{minHeight: '15vh'}}>
+          <div style={{minHeight: '25vh'}}>
             <div>
                 {playlistsToRender.map(playlist => <Playlist playlist={playlist} key={playlist.id}/>)}
             </div>
