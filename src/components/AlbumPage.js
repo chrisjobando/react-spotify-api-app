@@ -116,14 +116,14 @@ class AlbumPage extends Component {
                     <span className="info" style={{width: '100%'}}>
                      {this.props.state.current && this.props.state.current.id===track.id &&
                       <button onClick={() => {
-                          spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})
+                          spotify.play({context_uri: album.uri, offset: {uri: track.uri}})
                           spotify.setShuffle(false)}}>
                         <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{index+1}. </span>
                         <span style={{color: 'rgb(255, 202, 58)'}}>{track.name}</span>
                       </button>}
                     {this.props.state.current && this.props.state.current.id!==track.id &&
                       <button onClick={() => {
-                          spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})
+                          spotify.play({context_uri: album.uri, offset: {uri: track.uri}})
                           spotify.setShuffle(false)}}>
                         <span style={{fontWeight: 600}}>{index+1}. </span>
                         {track.name}
