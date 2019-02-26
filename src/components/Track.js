@@ -56,7 +56,6 @@ class Track extends Component {
                         <img src={track.album.images[0].url}
                             className='album-cover' alt='album-cover'/>
                     </NavLink> */}
-                    
 
                     {this.props.current && this.props.current.id===track.id &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
@@ -66,13 +65,17 @@ class Track extends Component {
                     {this.props.current && this.props.current.id!==track.id &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
                             <span style={{fontWeight: 600}}>{this.props.index+1}. </span>
-                            {track.name}
+                            {track.name} 
                         </button>}
-                    <span><NavLink to={{pathname:"/artist_details", state:{artist: track.artists[0]}, search: window.location.search}}>
-                        {track.artists[0].name}</NavLink></span>
                     <span style={{float: 'right'}}>
                         {this.millisToMinutesAndSeconds(track.duration_ms)}
                     </span>
+                    <div className="under-title">
+                        <span><NavLink to={{pathname:"/artist_details", state:{artist: track.artists[0]}, search: window.location.search}}>
+                            {track.artists[0].name}</NavLink></span>
+                        <span style={{marginRight: '15px'}}> - <NavLink to={{pathname:"/album_details", state:{album: track.album}, search: window.location.search}}>
+                            {track.album.name}</NavLink></span>
+                    </div>
                 </div>
             </div>
         );
