@@ -51,22 +51,27 @@ class Track extends Component {
         return(
             <div className="list">
                 <div key={track.id}>
-                    <span className="info-topTrack">
-                        {this.props.current &&
-                        this.props.current.id===track.id &&
-                        <p style={{paddingTop: '10px', paddingRight: "10px", color: "lightgreen"}}>></p>}
-                        <NavLink to={{pathname:"/album_details",
-                            state:{album: track.album}, search: window.location.search}}>
-                            <img src={track.album.images[0].url}
-                                className='album-cover' alt='album-cover'/>
-                        </NavLink>
+                    {/* <NavLink to={{pathname:"/album_details",
+                        state:{album: track.album}, search: window.location.search}}>
+                        <img src={track.album.images[0].url}
+                            className='album-cover' alt='album-cover'/>
+                    </NavLink> */}
+                    
+
+                    {this.props.current && this.props.current.id===track.id &&
+                        <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
+                            <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{this.props.index+1}. </span>
+                            <span style={{color: 'rgb(255, 202, 58)'}}>{track.name}</span>
+                        </button>}
+                    {this.props.current && this.props.current.id!==track.id &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
                             <span style={{fontWeight: 600}}>{this.props.index+1}. </span>
-                            {track.name}<br/>
-                        </button>
-                        <span style={{float: 'right', marginTop: '20px'}}>
-                            {this.millisToMinutesAndSeconds(track.duration_ms)}
-                        </span>
+                            {track.name}
+                        </button>}
+                    <span><NavLink to={{pathname:"/artist_details", state:{artist: track.artists[0]}, search: window.location.search}}>
+                        {track.artists[0].name}</NavLink></span>
+                    <span style={{float: 'right'}}>
+                        {this.millisToMinutesAndSeconds(track.duration_ms)}
                     </span>
                 </div>
             </div>
@@ -75,7 +80,3 @@ class Track extends Component {
 }
 
 export default Track;
-
-/**
- *  {this.props.state.recents.map((track, index) =><Track current={this.props.state.current} post={track.track} index={index} key={track.id}/>)}
- */

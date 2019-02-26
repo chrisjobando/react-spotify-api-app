@@ -10,7 +10,7 @@ class Album extends Component {
         <NavLink to={{pathname:"/album_details",
           state:{album: album}, search: window.location.search}}>
           <img src={album.images[0].url}
-            className='album-cover'
+            className='album-cover2'
             alt='Album Cover'/>
         </NavLink>
         <br/>

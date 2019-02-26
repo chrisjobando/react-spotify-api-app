@@ -114,17 +114,21 @@ class AlbumPage extends Component {
             <div className="list">
                 <div key={track.id}>
                     <span className="info" style={{width: '100%'}}>
-                        {this.props.state.current &&
-                          this.props.state.current.id===track.id &&
-                          <p style={{marginRight: "10px", color: "lightgreen"}}>></p>}
-                        <button onClick={() => {
-                          spotify.play({context_uri: album.uri, offset: {uri: track.uri}});
-                          spotify.setShuffle(false);
-                        }}>
-                            <span style={{fontWeight: 600}}>{index+1}. </span>
-                            {track.name} <br/>
-                        </button>
-                        <span style={{float: 'right'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
+                     {this.props.state.current && this.props.state.current.id===track.id &&
+                      <button onClick={() => {
+                          spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})
+                          spotify.setShuffle(false)}}>
+                        <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{index+1}. </span>
+                        <span style={{color: 'rgb(255, 202, 58)'}}>{track.name}</span>
+                      </button>}
+                    {this.props.state.current && this.props.state.current.id!==track.id &&
+                      <button onClick={() => {
+                          spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})
+                          spotify.setShuffle(false)}}>
+                        <span style={{fontWeight: 600}}>{index+1}. </span>
+                        {track.name}
+                      </button>}
+                      <span style={{float: 'right'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>
                 </div>
             </div>)}
