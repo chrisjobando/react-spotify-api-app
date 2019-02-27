@@ -106,14 +106,14 @@ class ArtistPage extends Component {
     let albumsToRender = this.state.artist &&
       this.state.artistAlbums
       ? this.state.artistAlbums.filter(album => {
-        let isAlbum = (album.album_type==="album")
+        let isAlbum = (album.album_type==="album" && album.artists[0].id===this.state.artist.id)
         return isAlbum;
       }) : [];
-    
+
     let restToRender = this.state.artist &&
       this.state.artistAlbums
       ? this.state.artistAlbums.filter(album => {
-        let isNotAlbum = (album.album_type==="single")
+        let isNotAlbum = (album.album_type==="single" && album.artists[0].id===this.state.artist.id)
         return isNotAlbum;
       }) : [];
 
