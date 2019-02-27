@@ -266,7 +266,7 @@ class App extends Component {
               )}/>
               <Route path="/browse" render={(prop) => (
                 <div className="route">
-                  <Filter {...prop} placeholder={"Search for a song, artist, or album..."} onTextChange={text => this.setState({filterString: text})}/>
+                  <Filter {...prop} placeholder={"Search for a song, artist, album, or playlist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <Search {...prop} state={this.state}/>
                 </div>
               )}/>
