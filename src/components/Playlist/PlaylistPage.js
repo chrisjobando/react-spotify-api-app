@@ -110,17 +110,26 @@ class PlaylistPage extends Component {
             <div className="list">
               <div key={track.track.id}>
                 {this.props.state.current && this.props.state.current.id===track.track.id &&
-                  <button onClick={() => spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}})}>
+                  <button onClick={() => {
+                    spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}});
+                    spotify.setShuffle(false);
+                  }}>
                     <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{index+1}. </span>
                     <span style={{color: 'rgb(255, 202, 58)'}}>{track.track.name} {track.track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}</span>
                   </button>}
                 {!this.props.state.current &&
-                  <button onClick={() => spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}})}>
+                  <button onClick={() => {
+                    spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}});
+                    spotify.setShuffle(false);
+                  }}>
                     <span style={{fontWeight: 600}}>{index+1}. </span>
                     {track.track.name} {track.track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
                   </button>}
                 {this.props.state.current && this.props.state.current.id!==track.track.id &&
-                  <button onClick={() => spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}})}>
+                  <button onClick={() => {
+                    spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}});
+                    spotify.setShuffle(false);
+                  }}>
                     <span style={{fontWeight: 600}}>{index+1}. </span>
                     {track.track.name} {track.track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
                   </button>}
