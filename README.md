@@ -12,16 +12,16 @@ but I enjoyed working with the API so much that I decided to create an entire we
 
 
 ## Currently, this app can:
-#### `Display your 10 most recently played tracks`
-#### `Browse tracks, artists, albums, and playlists`
-#### `See your playlists`
-#### `Control your Spotify player (on another player - in-browser, downloadable PC, or mobile app`
-#### `Show your Top 25 tracks/artists from the past month, 6 months, or all-time!`
+#### `- Display your 10 most recently played tracks`
+#### `- Browse tracks, artists, albums, and playlists`
+#### `- See your playlists`
+#### `- Control your Spotify player (on another player - in-browser, downloadable PC, or mobile app`
+#### `- Show your Top 25 tracks/artists from the past month, 6 months, or all-time!`
 
 
 ## Intended Future Features:
-#### `Generate playlists based on the user's preferences`
-#### `Show more personalized user statistics based on their listening preferences`
+#### `- Generate playlists based on the user's preferences`
+#### `- Show more personalized user statistics based on their listening preferences`
 
 
 ## Resources used:
