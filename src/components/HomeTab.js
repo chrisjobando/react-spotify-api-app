@@ -37,7 +37,7 @@ class HomeTab extends Component {
                 target="_blank" rel="noopener noreferrer">Follow My Spotify!</a></h2>
                 <h2 className="head-h2"><a href="https://github.com/chrisjobando"
                 target="_blank" rel="noopener noreferrer">Follow My Github!</a></h2>
-                <h2 className="head-h2"><a href="https://github.com/chrisjobando/spotify-app"
+                <h2 className="head-h2"><a href="https://github.com/chrisjobando/spotify-app/tree/master/src"
                 target="_blank" rel="noopener noreferrer">Link To Source Code</a></h2>
                 <br/>
                 <h1>Recently Played</h1>
