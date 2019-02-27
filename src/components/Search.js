@@ -135,7 +135,9 @@ class Search extends Component {
                                     alt='Album Cover'/>
                             </NavLink>
                             <br/>
-                            <h3 style={{fontWeight: '500'}} className="album-name">{album.name}</h3>
+                            {!this.props.current && <h3 style={{fontWeight: '500'}}>{album.name}</h3>}
+                             {this.props.current && this.props.current.uri!==album.uri && <h3 style={{fontWeight: '500'}}>{album.name}</h3>}
+                             {this.props.current && this.props.current.uri===album.uri && <h3 style={{color: 'rgb(255, 202, 58)', fontWeight: '500'}}>{album.name}</h3>}
                             <h5>{album.release_date.substring(0,4)}</h5>
                         </div>)}
                 </div>}
@@ -155,7 +157,9 @@ class Search extends Component {
                                 className='playlist-cover'
                                 alt='Album Cover'/>}
                             </NavLink>
-                            <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>
+                            {!this.props.current && <h3 style={{fontWeight: '500'}}>{playlist.name}</h3>}
+                            {this.props.current && this.props.current.uri!==playlist.uri && <h3 style={{fontWeight: '500'}}>{playlist.name}</h3>}
+                            {this.props.current && this.props.current.uri===playlist.uri && <h3 style={{color: 'rgb(255, 202, 58)', fontWeight: '500'}}>{playlist.name}</h3>}
                         </div>)}                    
                 </div>}
         </div>

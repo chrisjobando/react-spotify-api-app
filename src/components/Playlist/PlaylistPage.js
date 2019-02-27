@@ -125,12 +125,14 @@ class PlaylistPage extends Component {
           </div>}
         {playlist && !this.state.playlistTracks && this.getPlaylist()}
         {playlist && this.state.playlistTracks &&
-          <div><button onClick={() => {
+          <div>
+            {this.props.state.playback.context && this.props.state.playback.context.uri===playlist.uri && <h1 style={{margin: 0, color: ' rgb(255, 202, 58)'}}>Currently Playing</h1>}</div>}
+            <button onClick={() => {
             spotify.play({context_uri: playlist.uri});
             spotify.setShuffle(true);
           }} className="play">
             <FontAwesome name='random'/> Shuffle Playlist
-          </button></div>}
+          </button>
           {playlist && playlist.tracks.total > this.state.playlistTracks.length
           && <h1 style={{margin: 0, fontWeight: 500}}>Loading...</h1>}
         {playlist && this.state.playlistTracks &&  playlist.tracks.total===this.state.playlistTracks.length &&

@@ -17,7 +17,7 @@ class PlaylistTab extends Component {
         return(
           <div style={{minHeight: '25vh'}}>
             <div>
-                {playlistsToRender.map(playlist => <Playlist playlist={playlist} key={playlist.id}/>)}
+                {playlistsToRender.map(playlist => <Playlist current={this.props.state.playback.context} playlist={playlist} key={playlist.id}/>)}
             </div>
           </div>
         );

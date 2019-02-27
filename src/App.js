@@ -268,7 +268,7 @@ class App extends Component {
               <Route path="/browse" render={(prop) => (
                 <div className="route">
                   <Filter {...prop} placeholder={"Search for a song, artist, album, or playlist..."} onTextChange={text => this.setState({filterString: text})}/>
-                  <Search {...prop} state={this.state}/>
+                  <Search {...prop} current={this.state.playback.context} state={this.state}/>
                 </div>
               )}/>
               <Route path="/profile" render={(prop) => (
@@ -317,7 +317,7 @@ class App extends Component {
                       activeClassName="active">Past Month</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
                       to={{pathname: '/top/artists/medium_term', search: window.location.search}}
-                      activeClassName="active">PasPlaylistsPlaylistsPlaylistsPlaylistsPlaylistsPlaylistsPlaylistsPlaylistst 6 Months</NavLink>
+                      activeClassName="active">Past 6 Months</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("long_term")}
                       to={{pathname: '/top/artists/long_term', search: window.location.search}}
                       activeClassName="active">All Time</NavLink>
