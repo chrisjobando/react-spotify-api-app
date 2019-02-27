@@ -169,7 +169,7 @@ class ArtistPage extends Component {
                             <span style={{fontWeight: 600}}>{index+1}. </span>
                             {track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
                           </button>}
-                        <span style={{float: 'right', marginTop: '20px'}}>{this.millisToMinutesAndSeconds(track.duration_ms)}</span>
+                        <span style={{float: 'right', marginTop: '20px'}}>{} {this.millisToMinutesAndSeconds(track.duration_ms)}</span>
                     </span>
                 </div>
             </div>)}

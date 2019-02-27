@@ -12,6 +12,8 @@ import queryString from 'query-string';
  */
 import SpotifyWebApi from 'spotify-web-api-js';
 
+import NoPic from '../img/nopic.png';
+
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
 
@@ -122,13 +124,16 @@ class Search extends Component {
                     <br/>
                     {this.state.artists.length===0 && <h2>No Artists Found</h2>}
                     {this.state.artists.map((artist) =>
-                        <div style={{textAlign: 'left', paddingLeft: '25px'}}>
+                        <div className="artist-2" style={{marginBottom: 0}}>
                             <span>
-                                <h2 style={{margin: '0', padding: '0'}} className="bold">
+                                <h2 className="bold">
                                     <NavLink to={{pathname:"/artist_details",
                                         state:{artist: artist}, search: this.props.location.search}}>
-                                    {/* <img src={artist.images[0].url}
-                                        className='pic-2' alt='artist-pic'></img> */}
+                                    {artist.images[0] && <img src={artist.images[0].url}
+                                        className='pic-2' alt='artist-pic'></img>}
+                                    {!artist.images[0] && <img src={NoPic}
+                                        className='pic-2' alt='artist-pic'></img>}
+                                    <br/>
                                     {artist.name}</NavLink>
                                 </h2>
                             </span>
@@ -144,11 +149,13 @@ class Search extends Component {
                         <div className='playlist-grid' key={playlist.id}>
                             <NavLink to={{pathname:"/playlist_details",
                             state:{playlist: playlist}, search: this.props.location.search}}>
-                            <img src={playlist.images[0].url}
+                            {playlist.images[0] && <img src={playlist.images[0].url}
                                 className='playlist-cover'
-                                alt='Album Cover'/>
+                                alt='Album Cover'/>}
+                            {!playlist.images[0] && <img src={NoPic}
+                                className='playlist-cover'
+                                alt='Album Cover'/>}
                             </NavLink>
-                            <br/>
                             <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>
                         </div>)}                    
                 </div>}
