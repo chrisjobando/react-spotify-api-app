@@ -14,9 +14,9 @@ class Playlist extends Component {
             alt='Album Cover'/>
         </NavLink>
         <br/>
-        {!this.props.current && <h3 style={{fontWeight: '500'}}>{playlist.name}</h3>}
-        {this.props.current && this.props.current.uri!==playlist.uri && <h3 style={{fontWeight: '500'}}>{playlist.name}</h3>}
-        {this.props.current && this.props.current.uri===playlist.uri && <h3 style={{color: 'rgb(255, 202, 58)', fontWeight: '500'}}>{playlist.name}</h3>}
+        {!this.props.current && <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>}
+        {this.props.current && this.props.current.uri!==playlist.uri && <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>}
+        {this.props.current && this.props.current.uri===playlist.uri && <h3 className="playlist-name" style={{color: 'rgb(255, 202, 58)', fontWeight: '500'}}>{playlist.name}</h3>}
       </div>
     );
   }

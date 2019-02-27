@@ -178,19 +178,19 @@ class ArtistPage extends Component {
             {!this.state.artistAlbums && <h1>Loading...</h1>}
             {artist && this.state.artistAlbums && albumsToRender.length===0 && <h2>This artist does not have any albums</h2>}
             {artist && this.state.artistAlbums && 
-              albumsToRender.map((album) => <Album album={album} key={album.id}/>)}
+              albumsToRender.map((album) => <Album current={this.props.state.playback.context} album={album} key={album.id}/>)}
             <h1>Singles and EPs</h1>
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
             {artist && this.state.artistAlbums && restToRender.length===0 && <h2>This artist does not have any singles/EPs</h2>}
             {artist && this.state.artistAlbums && 
-              restToRender.map((album) => <Album album={album} key={album.id}/>)}
+              restToRender.map((album) =><Album current={this.props.state.playback.context} album={album} key={album.id}/>)}
             <h1>Featured on:</h1>
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
             {artist && this.state.artistAlbums && featuresToRender.length===0 && <h2>This artist is not featured on any tracks</h2>}
             {artist && this.state.artistAlbums && 
-              featuresToRender.map((album) => <Album album={album} key={album.id}/>)}
+              featuresToRender.map((album) => <Album current={this.props.state.playback.context} album={album} key={album.id}/>)}
       </div>
     );
   }
