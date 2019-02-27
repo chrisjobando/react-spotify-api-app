@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-
-import Track from '../Track';
+import {NavLink} from 'react-router-dom';
 
 // npm Package that is capable of parsing query strings, such as ones in the URL 
 import queryString from 'query-string';
@@ -107,9 +106,36 @@ class PlaylistPage extends Component {
             <FontAwesome name='random'/> Shuffle Playlist
           </button></div>}
         {playlist && this.state.playlistTracks &&
-           tracksToRender.map((track, index) =>
-           <Track current={this.props.state.current} post={track.track} index={index} key={track.id}/>)}
-      </div>
+          tracksToRender.map((track, index) =>
+            <div className="list">
+              <div key={track.track.id}>
+                {this.props.state.current && this.props.state.current.id===track.track.id &&
+                  <button onClick={() => spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}})}>
+                    <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{index+1}. </span>
+                    <span style={{color: 'rgb(255, 202, 58)'}}>{track.track.name} {track.track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}</span>
+                  </button>}
+                {!this.props.state.current &&
+                  <button onClick={() => spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}})}>
+                    <span style={{fontWeight: 600}}>{index+1}. </span>
+                    {track.track.name} {track.track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
+                  </button>}
+                {this.props.state.current && this.props.state.current.id!==track.track.id &&
+                  <button onClick={() => spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}})}>
+                    <span style={{fontWeight: 600}}>{index+1}. </span>
+                    {track.track.name} {track.track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
+                  </button>}
+                <span style={{float: 'right'}}>
+                  {this.millisToMinutesAndSeconds(track.track.duration_ms)}
+                </span>
+                <div className="under-title">
+                  <span><NavLink to={{pathname:"/artist_details", state:{artist: track.track.artists[0]}, search: window.location.search}}>
+                    {track.track.artists[0].name}</NavLink></span>
+                  <span style={{marginRight: '15px'}}> - <NavLink to={{pathname:"/album_details", state:{album: track.track.album}, search: window.location.search}}>
+                    {track.track.album.name}</NavLink></span>
+                </div>
+              </div>
+            </div>)}
+          </div>
     );
   }
 }
