@@ -117,6 +117,13 @@ class ArtistPage extends Component {
         return isNotAlbum;
       }) : [];
 
+    let featuresToRender = this.state.artist &&
+      this.state.artistAlbums
+      ? this.state.artistAlbums.filter(album => {
+        let isFeature = (album.artists[0].id!==this.state.artist.id)
+        return isFeature;
+      }) : [];
+
     let artist = this.state.artist;
     return(
       <div>
@@ -169,13 +176,21 @@ class ArtistPage extends Component {
             <h1>Albums</h1>
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
+            {artist && this.state.artistAlbums && albumsToRender.length===0 && <h2>This artist does not have any albums</h2>}
             {artist && this.state.artistAlbums && 
               albumsToRender.map((album) => <Album album={album} key={album.id}/>)}
             <h1>Singles and EPs</h1>
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
+            {artist && this.state.artistAlbums && restToRender.length===0 && <h2>This artist does not have any singles/EPs</h2>}
             {artist && this.state.artistAlbums && 
               restToRender.map((album) => <Album album={album} key={album.id}/>)}
+            <h1>Featured on:</h1>
+            <br/>
+            {!this.state.artistAlbums && <h1>Loading...</h1>}
+            {artist && this.state.artistAlbums && featuresToRender.length===0 && <h2>This artist is not featured on any tracks</h2>}
+            {artist && this.state.artistAlbums && 
+              featuresToRender.map((album) => <Album album={album} key={album.id}/>)}
       </div>
     );
   }
