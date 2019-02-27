@@ -93,7 +93,7 @@ class PlaylistPage extends Component {
             <img src={playlist.images[0].url}
               className='cover' alt='album-cover'/>
             <h1>{playlist.name}</h1>
-            <h2>Playlist by <a href={playlist.owner.external_urls.spotify} target="_blank" rel="noopener noreferrer">{playlist.owner.display_name}</a></h2>
+            <h2>Created by <a href={playlist.owner.external_urls.spotify} target="_blank" rel="noopener noreferrer">{playlist.owner.display_name}</a></h2>
             <br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
           </div>}
