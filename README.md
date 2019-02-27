@@ -21,7 +21,6 @@ but I enjoyed working with the API so much that I decided to create an entire we
 
 ## Intended Future Features:
 #### `Generate playlists based on the user's preferences`
-#### `Show User profiles`
 #### `Show more personalized user statistics based on their listening preferences`
 
 
