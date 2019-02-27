@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
-
 import ToggleButton from './NavDrawer/ToggleButton';
 
 import '../styling/Navbar.sass';
 
- class Navbar extends Component {
+ class Header extends Component {
     render() {    
         return(
             <header className="navbar">
@@ -20,8 +18,8 @@ import '../styling/Navbar.sass';
                             rel='noopener noreferrer'>{this.props.state.user.display_name}</a>
                             <p className="logout"><a href="/">Logout</a></p>
                         </div>
-                        <NavLink to={{pathname: '/', search: window.location.search}}><img src={this.props.state.user.images[0].url}
-                            alt='Profile Pic' className='profilePic'/></NavLink>
+                        <img onClick={() => window.scrollTo(0,0)} src={this.props.state.user.images[0].url}
+                            alt='Profile Pic' className='profilePic'/>
                     </div>
                 </nav>
             </header>
@@ -29,4 +27,4 @@ import '../styling/Navbar.sass';
     }
  }
 
-export default Navbar;
+export default Header;

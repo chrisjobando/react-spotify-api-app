@@ -18,7 +18,7 @@ import queryString from 'query-string';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Backdrop from './components/Backdrop/Backdrop';
 import NavDrawer from './components/NavDrawer/NavDrawer';
-import Navbar from './components/Navbar';
+import Header from './components/Header';
 import Login from './components/Login';
 import Filter from './components/Filter';
 import Player from './components/Player/Player';
@@ -34,6 +34,7 @@ import Recent from './components/Recent';
 import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
 import TopArtists from './components/TopArtists';
+import MyProfileTab from './components/MyProfileTab';
 
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
@@ -249,7 +250,7 @@ class App extends Component {
               {/* App Navigation */}
               {this.state.current && <Player state={this.state}/>}
               <NavigationBar state={this.state}/>
-              <Navbar state={this.state} drawerClickHandler={this.drawerToggleClickHandler} />
+              <Header state={this.state} drawerClickHandler={this.drawerToggleClickHandler} />
               <NavDrawer show={this.state.navDrawerOpen} />
               {backdrop}
 
@@ -270,12 +271,13 @@ class App extends Component {
                   <Search {...prop} state={this.state}/>
                 </div>
               )}/>
-              <Route path="/playlists" render={(prop) => (
+              <Route path="/profile" render={(prop) => (
                 <div className="route">
+                  <MyProfileTab {...prop} state={this.state}/>
                   <Filter {...prop} placeholder={"Search for a playlist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <PlaylistTab {...prop} state={this.state}/>
                 </div>
-              )}/>     
+              )}/>  
               <Route path="/top" exact render={(prop) => (
                 <div className="route">
                   <TopTab {...prop} state={this.state}/>
@@ -315,7 +317,7 @@ class App extends Component {
                       activeClassName="active">Past Month</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
                       to={{pathname: '/top/artists/medium_term', search: window.location.search}}
-                      activeClassName="active">Past 6 Months</NavLink>
+                      activeClassName="active">PasPlaylistsPlaylistsPlaylistsPlaylistsPlaylistsPlaylistsPlaylistsPlaylistst 6 Months</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("long_term")}
                       to={{pathname: '/top/artists/long_term', search: window.location.search}}
                       activeClassName="active">All Time</NavLink>

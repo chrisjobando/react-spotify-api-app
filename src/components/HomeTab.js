@@ -4,10 +4,6 @@ import React, {Component} from 'react';
 import '../styling/HomeTab.sass'
 import '../styling/Header.sass';
 
-// Components
-import FollowerCounter from './FollowerCounter';
-import PlaylistCounter from './Playlist/PlaylistCounter';
-
 class HomeTab extends Component {
     componentDidMount() {
         window.scrollTo(0,0);
@@ -16,10 +12,6 @@ class HomeTab extends Component {
     render() {
         return(
             <div>
-                <header className="head">
-                    <FollowerCounter followers={this.props.state.user.followers.total} />
-                    <PlaylistCounter numPlaylists={this.props.state.playlists.length} />
-                </header>
                 <h1>Welcome to My Spotify Web App!</h1>
                 <br/>
                 <h2 className="head-h2">This is a personal project I have been working on for the

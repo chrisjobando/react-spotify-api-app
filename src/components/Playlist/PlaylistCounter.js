@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../../styling/PlaylistCounter.sass';
 import FontAwesome from 'react-fontawesome';
+
+import '../../styling/PlaylistCounter.sass';
 
 class PlaylistCounter extends Component {
     render () {

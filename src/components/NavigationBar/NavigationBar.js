@@ -9,7 +9,6 @@ const navDrawer = props => {
   if (props.show) {
     barClasses = 'bar open';
   }
-
   return (
     <nav className={barClasses}>
       <ul>
@@ -17,8 +16,8 @@ const navDrawer = props => {
           exact activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="home"/>Home</NavLink></li>
         <li><NavLink to={{pathname: '/browse', search: window.location.search}}
           activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="search"/>Browse</NavLink></li>
-        <li><NavLink to={{pathname: '/playlists', search: window.location.search}}
-          activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="headphones"/>My Playlists</NavLink></li>
+        <li><NavLink to={{pathname: '/profile', search: window.location.search}}
+          activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="user-circle"/>My Profile</NavLink></li>
         <li><NavLink to={{pathname: '/top', search: window.location.search}}
           activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="signal"/>My Stats</NavLink></li>
       </ul>
