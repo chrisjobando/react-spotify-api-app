@@ -29,6 +29,7 @@ class PlaylistPage extends Component {
     this.state = {
       playlist: '',
       playlistTracks: '',
+      playlistTracksToAdd: '',
       filterString: '',
     }
   };
@@ -49,7 +50,7 @@ class PlaylistPage extends Component {
       playlist: this.props.location.state.playlist
     })
     this.getPlaylist();
-    setInterval(() => this.getPlaylist(), 100);
+    setInterval(() => this.getMorePlaylist(), 300);
   };
 
   /**
@@ -64,6 +65,28 @@ class PlaylistPage extends Component {
       });
     });
   };
+
+  /**
+   * @author: Christopher Obando
+   * Uses getPlaylistTracks() method from Spotify Wrapper to return up to 100 tracks
+   * in a playlist, starting from next available track to load (given playlist ID)
+   * This method is necessary because the API only returns 100 tracks at a time
+   */
+  getMorePlaylist() {
+    spotify.getPlaylistTracks(this.state.playlist.id, {limit: 100, offset: this.state.playlistTracks.length})
+      .then(result => {
+        this.setState({
+          playlistTracksToAdd: result.items
+        })
+    })
+  }
+
+  checkUpdate() {
+    if (this.state.playlistTracksToAdd.length > 0) {
+      this.setState({playlistTracks: [...this.state.playlistTracks, ...this.state.playlistTracksToAdd]});
+      this.setState({playlistTracksToAdd: ''})
+    }
+  }
 
   /**
    * From: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
@@ -81,7 +104,9 @@ class PlaylistPage extends Component {
       this.state.playlistTracks
       ? this.state.playlistTracks.filter(track => {
         let matchesTrack = track.track.name.toLowerCase().includes(
-          this.state.filterString.toLowerCase());
+          this.state.filterString.toLowerCase()) || track.track.artists[0].name.toLowerCase().includes(
+            this.state.filterString.toLowerCase()) || track.track.album.name.toLowerCase().includes(
+              this.state.filterString.toLowerCase());
         return matchesTrack;
       }) : [];
 
@@ -94,10 +119,11 @@ class PlaylistPage extends Component {
               className='cover' alt='album-cover'/>
             <h1>{playlist.name}</h1>
             <h2>Created by <a href={playlist.owner.external_urls.spotify} target="_blank" rel="noopener noreferrer">{playlist.owner.display_name}</a></h2>
+            <h2>{playlist.tracks.total} songs</h2>
             <br/>
-            <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
+            <Filter placeholder={"Search for a track, album, or artist..."} onTextChange={text => this.setState({filterString: text})}/>
           </div>}
-        {!this.state.playlistTracks && <h1>Loading...</h1>}
+        {playlist && !this.state.playlistTracks && this.getPlaylist()}
         {playlist && this.state.playlistTracks &&
           <div><button onClick={() => {
             spotify.play({context_uri: playlist.uri});
@@ -105,10 +131,12 @@ class PlaylistPage extends Component {
           }} className="play">
             <FontAwesome name='random'/> Shuffle Playlist
           </button></div>}
-        {playlist && this.state.playlistTracks &&
+          {playlist && playlist.tracks.total > this.state.playlistTracks.length
+          && <h1 style={{margin: 0, fontWeight: 500}}>Loading...</h1>}
+        {playlist && this.state.playlistTracks &&  playlist.tracks.total===this.state.playlistTracks.length &&
           tracksToRender.map((track, index) =>
             <div className="list">
-              <div key={track.track.id}>
+              <div key={track.id}>
                 {this.props.state.current && this.props.state.current.id===track.track.id &&
                   <button onClick={() => {
                     spotify.play({context_uri: playlist.uri, offset: {uri: track.track.uri}});
@@ -144,7 +172,8 @@ class PlaylistPage extends Component {
                 </div>
               </div>
             </div>)}
-          </div>
+            {playlist && this.state.playlistTracksToAdd.length > 0 && this.checkUpdate()}
+         </div>
     );
   }
 }
