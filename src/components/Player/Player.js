@@ -87,7 +87,7 @@ class Player extends Component {
                         </p>
                     </div>
                     <div className="controls">
-                        {this.state.shuffle && <button style={{color: 'green', fontSize: '24px'}} onClick={() => spotify.setShuffle(false)}><FontAwesome name='random'/></button>}
+                        {this.state.shuffle && <button style={{color: 'rgb(138, 201, 38)', fontSize: '22px'}} onClick={() => spotify.setShuffle(false)}><FontAwesome name='random'/></button>}
                         {!this.state.shuffle && <button style={{fontSize: '24px'}} onClick={() => spotify.setShuffle(true)}><FontAwesome name='random'/></button>}
                         <button onClick={() => spotify.skipToPrevious()}><FontAwesome name='angle-left' size='2x'/></button>
                         {this.state.playing===false &&

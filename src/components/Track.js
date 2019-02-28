@@ -60,8 +60,8 @@ class Track extends Component {
 
                     {this.props.current && this.props.current.id===track.id &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
-                            <span style={{color: 'rgb(255, 202, 58)', fontWeight: 600}}>{this.props.index+1}. </span>
-                            <span style={{color: 'rgb(255, 202, 58)'}}>{track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}</span>
+                            <span style={{color: 'rgb(138, 201, 38)', fontWeight: 600}}>{this.props.index+1}. </span>
+                            <span style={{color: 'rgb(138, 201, 38)'}}>{track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}</span>
                         </button>}
                     {!this.props.current &&
                         <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
