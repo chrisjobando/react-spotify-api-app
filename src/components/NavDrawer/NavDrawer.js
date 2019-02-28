@@ -21,6 +21,8 @@ const navDrawer = props => {
           activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="user-circle"/>My Profile</NavLink></li>
         <li><NavLink to={{pathname: '/top', search: window.location.search}}
           activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="signal"/>My Stats</NavLink></li>
+        <li><NavLink to={{pathname: '/suggested', search: window.location.search}}
+          activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="volume-up"/>Suggested</NavLink></li>
       </ul>
     </nav>
   );

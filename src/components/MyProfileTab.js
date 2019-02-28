@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 // Components
 import FollowerCounter from './FollowerCounter';
 import PlaylistCounter from './Playlist/PlaylistCounter';
-import '../styling/TopTab.sass';
 
 class ProfileTab extends Component {
   componentDidMount() {

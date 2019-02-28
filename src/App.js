@@ -35,6 +35,7 @@ import TopTab from './components/TopTab';
 import TopTracks from './components/TopTracks';
 import TopArtists from './components/TopArtists';
 import MyProfileTab from './components/MyProfileTab';
+import SuggestTab from './components/SuggestTab';
 
 // Instantiates the wrapper
 const spotify = new SpotifyWebApi();
@@ -277,7 +278,12 @@ class App extends Component {
                   <Filter {...prop} placeholder={"Search for a playlist..."} onTextChange={text => this.setState({filterString: text})}/>
                   <PlaylistTab {...prop} state={this.state}/>
                 </div>
-              )}/>  
+              )}/>
+              <Route path="/suggested" exact render={(prop) => (
+                <div className="route">
+                  <SuggestTab {...prop} state={this.state}/>
+                </div>
+              )}/> 
               <Route path="/top" exact render={(prop) => (
                 <div className="route">
                   <TopTab {...prop} state={this.state}/>
