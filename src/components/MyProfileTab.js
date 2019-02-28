@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom';
 
 // Components
 import FollowerCounter from './FollowerCounter';
