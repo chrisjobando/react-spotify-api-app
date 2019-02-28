@@ -153,8 +153,11 @@ class ArtistPage extends Component {
                             <img src={track.album.images[0].url}
                                 className='album-cover' alt='album-cover2'/>
                         </NavLink>
-
-
+                        {!this.props.state.current &&
+                        <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
+                            <span style={{fontWeight: 600}}>{index+1}. </span>
+                            {track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
+                        </button>}
                         {this.props.state.current && this.props.state.current.id===track.id &&
                           <button onClick={() => {
                               spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})

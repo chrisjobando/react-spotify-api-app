@@ -116,6 +116,11 @@ class AlbumPage extends Component {
             <div className="list">
                 <div key={track.id}>
                     <span className="info" style={{width: '100%'}}>
+                    {!this.props.state.current &&
+                        <button onClick={() => spotify.play({context_uri: track.album.uri, offset: {uri: track.uri}})}>
+                            <span style={{fontWeight: 600}}>{index+1}. </span>
+                            {track.name} {track.explicit && <FontAwesome name="exclamation-circle">E</FontAwesome>}
+                        </button>}
                      {this.props.state.current && this.props.state.current.id===track.id &&
                       <button onClick={() => {
                           spotify.play({context_uri: album.uri, offset: {uri: track.uri}})
