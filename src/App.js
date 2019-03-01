@@ -61,7 +61,7 @@ class App extends Component {
       playlists: [],
       tracks: [],
       artists: [],
-      recents: [],
+      recents: '',
       current: "",
       playback: "",
       filterString: "",
