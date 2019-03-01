@@ -233,12 +233,18 @@ class App extends Component {
     this.setState({ navDrawerOpen: false });
   };
 
+  addMonths(date, months) {
+    date.setMonth(date.getMonth() + months);
+    return date;
+  }
+
   render() {
     let backdrop;
     if (this.state.navDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />;
     }
 
+    let pastMonth = this.addMonths(new Date(), -6).toLocaleString('en-us', { month: 'long' })
   
     return (
       <Router>
@@ -302,7 +308,7 @@ class App extends Component {
                       activeClassName="active">Past Month</NavLink>
                     <NavLink onClick={() => this.getTopTracksRange("medium_term")}
                       to={{pathname: '/top/tracks/medium_term', search: window.location.search}}
-                      activeClassName="active">Past 6 Months</NavLink>
+                      activeClassName="active">Since {pastMonth}</NavLink>
                     <NavLink onClick={() => this.getTopTracksRange("long_term")}
                       to={{pathname: '/top/tracks/long_term', search: window.location.search}}
                       activeClassName="active">All Time</NavLink>
@@ -323,7 +329,7 @@ class App extends Component {
                       activeClassName="active">Past Month</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("medium_term")}
                       to={{pathname: '/top/artists/medium_term', search: window.location.search}}
-                      activeClassName="active">Past 6 Months</NavLink>
+                      activeClassName="active">Since {pastMonth}</NavLink>
                     <NavLink onClick={() => this.getTopArtistsRange("long_term")}
                       to={{pathname: '/top/artists/long_term', search: window.location.search}}
                       activeClassName="active">All Time</NavLink>
