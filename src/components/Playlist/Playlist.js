@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 import '../../styling/Playlist.sass';
 
 class Playlist extends Component {
@@ -15,8 +16,10 @@ class Playlist extends Component {
         </NavLink>
         <br/>
         {!this.props.current && <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>}
-        {this.props.current && this.props.current.external_urls.spotify!==playlist.external_urls.spotify && <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>}
-        {this.props.current && this.props.current.external_urls.spotify===playlist.external_urls.spotify && <h3 className="playlist-name" style={{color: 'rgb(138, 201, 38)', fontWeight: '500'}}>{playlist.name}</h3>}
+        {this.props.current && this.props.current.external_urls.spotify!==playlist.external_urls.spotify &&
+          <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>}
+        {this.props.current && this.props.current.external_urls.spotify===playlist.external_urls.spotify &&
+          <h3 className="playlist-name" style={{fontWeight: '500'}}><FontAwesome style={{marginRight: '5px'}} name="volume-up"/>{playlist.name}</h3>}
       </div>
     );
   }

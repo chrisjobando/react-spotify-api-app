@@ -102,7 +102,6 @@ class AlbumPage extends Component {
             <h3 style={{margin: 0, fontWeight: '400'}}>{album.release_date.substring(0,4)}</h3>
             <br/><br/>
             <Filter placeholder={"Search for a track..."} onTextChange={text => this.setState({filterString: text})}/>
-            {this.props.state.playback.context && this.props.state.playback.context.uri===album.uri && <h1 style={{margin: 0, color: ' rgb(138, 201, 38)'}}>Currently Playing</h1>}
             <button onClick={() => {
               spotify.play({context_uri: album.uri});
               spotify.setShuffle(true);

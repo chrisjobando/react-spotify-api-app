@@ -124,13 +124,9 @@ class PlaylistPage extends Component {
             <Filter placeholder={"Search for a track, album, or artist..."} onTextChange={text => this.setState({filterString: text})}/>
           </div>}
         {playlist && !this.state.playlistTracks && this.getPlaylist()}
-        {playlist && this.state.playlistTracks &&
-          <div>
-            {this.props.state.playback.context && this.props.state.playback.context.external_urls.spotify===playlist.external_urls.spotify && <h1 style={{margin: 0, color: 'rgb(138, 201, 38)'}}>Currently Playing</h1>}</div>}
-            <button onClick={() => {
+          <button onClick={() => {
             spotify.play({context_uri: playlist.uri});
-            spotify.setShuffle(true);
-          }} className="play">
+            spotify.setShuffle(true);}} className="play">
             <FontAwesome name='random'/> Shuffle Playlist
           </button>
           {playlist && playlist.tracks.total > this.state.playlistTracks.length

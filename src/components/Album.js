@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 import '../styling/Album.sass';
 
 class Album extends Component {
@@ -16,7 +17,7 @@ class Album extends Component {
         <br/>
         {!this.props.current && <h3 className="album-name" style={{fontWeight: '500'}}>{album.name}</h3>}
         {this.props.current && this.props.current.uri!==album.uri && <h3 className="album-name" style={{fontWeight: '500'}}>{album.name}</h3>}
-        {this.props.current && this.props.current.uri===album.uri && <h3 className="album-name" style={{color: 'rgb(138, 201, 38)', fontWeight: '500'}}>{album.name}</h3>}
+        {this.props.current && this.props.current.uri===album.uri && <h3 className="album-name" style={{fontWeight: '500'}}><FontAwesome style={{marginRight: '5px'}} name="volume-up"/>{album.name}</h3>}
        <h5>{album.release_date.substring(0,4)}</h5>
       </div>
     );

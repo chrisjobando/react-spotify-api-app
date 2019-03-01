@@ -22,7 +22,7 @@ const navDrawer = props => {
         <li><NavLink to={{pathname: '/top', search: window.location.search}}
           activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="signal"/>My Stats</NavLink></li>
         <li><NavLink to={{pathname: '/suggested', search: window.location.search}}
-          activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="volume-up"/>Suggested</NavLink></li>
+          activeClassName="active"><FontAwesome style={{marginRight: '10px'}} name="arrow-alt-circle-down"/>Suggested</NavLink></li>
       </ul>
     </nav>
   );
