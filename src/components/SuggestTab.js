@@ -100,7 +100,14 @@ class SuggestTab extends Component {
         .then(result => this.setState({alltime: result.tracks}));
     }
 
+    addMonths(date, months) {
+        date.setMonth(date.getMonth() + months);
+        return date;
+    }
+
     render() {
+        let pastMonth = this.addMonths(new Date(), -6).toLocaleString('en-us', { month: 'long' })
+        
         return(
             <div style={{minHeight: '50vh'}}>
                 <h1>Recommendations</h1>
@@ -114,7 +121,7 @@ class SuggestTab extends Component {
                 {this.state.mood && this.state.mood.map((track, index) =>
                     <Track current={this.props.state.current} post={track} index={index} key={track.id}/>)}
                 <br/>
-                <h2 style={{fontWeight: 500}}>Based on your Listening Habits this Month</h2>
+                <h2 style={{fontWeight: 500}}>Based on your Top Played this Month</h2>
                 <button style={{marginBottom: 0}}
                     onClick={() => this.generateMonth()}>
                     <FontAwesome  style={{marginRight: '5px', fontSize: '12px'}} name='sync'/>Refresh</button>
@@ -122,7 +129,7 @@ class SuggestTab extends Component {
                 {this.state.month && this.state.month.map((track, index) =>
                     <Track current={this.props.state.current} post={track} index={index} key={track.id}/>)}
                 <br/>
-                <h2 style={{fontWeight: 500}}>Based on your Listening Habits for the Past 6 Months</h2>
+                <h2 style={{fontWeight: 500}}>Based on your Top Played since {pastMonth}</h2>
                 <button style={{marginBottom: 0}}
                     onClick={() => this.generateSixMonth()}>
                     <FontAwesome  style={{marginRight: '5px', fontSize: '12px'}} name='sync'/>Refresh</button>
