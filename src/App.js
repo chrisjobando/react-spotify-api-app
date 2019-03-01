@@ -242,7 +242,7 @@ class App extends Component {
   
     return (
       <Router>
-        <div className="App">
+        <div className="App" style={{minHeight: '100vh'}}>
           <Login loggedIn={this.state.loggedIn}/>
           {this.state.loggedIn && this.state.user
               && this.state.playlists && this.state.tracks &&
