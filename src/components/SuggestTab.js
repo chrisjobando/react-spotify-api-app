@@ -9,7 +9,7 @@ import Track from './Track';
  */
 import SpotifyWebApi from 'spotify-web-api-js';
 
-// npm Package that is capable of parsing query strings, such as ones in the URL 
+// npm Package that is capable of parsing query strings, such as ones in the URL
 import queryString from 'query-string';
 
 // Instantiates the wrapper
@@ -40,19 +40,19 @@ class SuggestTab extends Component {
      * From: https://www.npmjs.com/package/query-string
      * Obtains parameters from the URL
      * @return Object with all querys
-     */    
+     */
     getHashParams() {
         let parsed = queryString.parse(window.location.search);
         return parsed;
     }
 
     componentDidMount() {
-        window.scrollTo(0,0);  
+        window.scrollTo(0,0);
         this.getTopTracks();
     }
 
     generateMood() {
-        spotify.getRecommendations({limit: 5, seed_tracks: [this.props.state.recents[0].track.id, 
+        spotify.getRecommendations({limit: 5, seed_tracks: [this.props.state.recents[0].track.id,
             this.props.state.recents[1].track.id, this.props.state.recents[2].track.id,
             this.props.state.recents[3].track.id, this.props.state.recents[4].track.id]})
         .then(result => {
@@ -80,21 +80,21 @@ class SuggestTab extends Component {
     }
 
     generateMonth() {
-        spotify.getRecommendations({limit: 5, seed_tracks: [this.state.monthTracks[0].id, 
+        spotify.getRecommendations({limit: 5, seed_tracks: [this.state.monthTracks[0].id,
             this.state.monthTracks[1].id, this.state.monthTracks[2].id,
             this.state.monthTracks[3].id, this.state.monthTracks[4].id]})
         .then(result => this.setState({month: result.tracks}));
     }
 
     generateSixMonth() {
-        spotify.getRecommendations({limit: 5, seed_tracks: [this.state.sixmonthTracks[0].id, 
+        spotify.getRecommendations({limit: 5, seed_tracks: [this.state.sixmonthTracks[0].id,
             this.state.sixmonthTracks[1].id, this.state.sixmonthTracks[2].id,
             this.state.sixmonthTracks[3].id, this.state.sixmonthTracks[4].id]})
         .then(result => this.setState({sixmonth: result.tracks}));
     }
 
     generateAllTime() {
-        spotify.getRecommendations({limit: 5, seed_tracks: [this.state.alltimeTracks[0].id, 
+        spotify.getRecommendations({limit: 5, seed_tracks: [this.state.alltimeTracks[0].id,
             this.state.alltimeTracks[1].id, this.state.alltimeTracks[2].id,
             this.state.alltimeTracks[3].id, this.state.alltimeTracks[4].id]})
         .then(result => this.setState({alltime: result.tracks}));
@@ -107,7 +107,7 @@ class SuggestTab extends Component {
 
     render() {
         let pastMonth = this.addMonths(new Date(), -6).toLocaleString('en-us', { month: 'long' })
-        
+
         return(
             <div style={{minHeight: '50vh'}}>
                 <h1>Recommendations</h1>

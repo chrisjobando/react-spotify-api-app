@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import {NavLink} from 'react-router-dom';
 
-// npm Package that is capable of parsing query strings, such as ones in the URL 
+// npm Package that is capable of parsing query strings, such as ones in the URL
 import queryString from 'query-string';
 
 /**
@@ -33,7 +33,7 @@ class PlaylistPage extends Component {
       filterString: '',
     }
   };
-  
+
   /**
    * @author: Christopher Obando
    * From: https://www.npmjs.com/package/query-string
@@ -91,7 +91,7 @@ class PlaylistPage extends Component {
   /**
    * From: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
    * Method to turn track.duration_ms into minutes:seconds for display
-   * @param millis time in ms to convert to minutes and seconds 
+   * @param millis time in ms to convert to minutes and seconds
    */
   millisToMinutesAndSeconds(millis) {
     let minutes = Math.floor(millis / 60000);

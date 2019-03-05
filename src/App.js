@@ -11,7 +11,7 @@ import './App.sass';
  */
 import SpotifyWebApi from 'spotify-web-api-js';
 
-// npm Package that is capable of parsing query strings, such as ones in the URL 
+// npm Package that is capable of parsing query strings, such as ones in the URL
 import queryString from 'query-string';
 
 // Components
@@ -127,7 +127,7 @@ class App extends Component {
   /**
    * @author: Christopher Obando
    * Same as method above, but has
-   * @param range takes in a string with time range of data 
+   * @param range takes in a string with time range of data
   */
   getTopTracksRange(range) {
     spotify.getMyTopTracks({limit: 25, time_range: range}).then(result => {
@@ -154,7 +154,7 @@ class App extends Component {
   /**
    * @author: Christopher Obando
    * Same as method above, but has
-   * @param range takes in a string with time range of data 
+   * @param range takes in a string with time range of data
   */
   getTopArtistsRange(range) {
     spotify.getMyTopArtists({limit: 25, time_range: range}).then(result => {
@@ -163,7 +163,7 @@ class App extends Component {
       });
     });
   }
-  
+
   /**
    * @author: Christopher Obando
    * Uses the getUserPlaylist() method from spotify wrapper, returns an
@@ -181,7 +181,7 @@ class App extends Component {
    * @author: Christopher Obando
    * Uses the getMyRecentlyPlayedTracks() method from spotify wrapper,
    * returns an object containing the most recent 25 tracks played by a user.
-   * Track had to have been played for more than 30 seconds and is visible 
+   * Track had to have been played for more than 30 seconds and is visible
    * after completion
    */
   getMyRecents() {
@@ -245,7 +245,7 @@ class App extends Component {
     }
 
     let pastMonth = this.addMonths(new Date(), -6).toLocaleString('en-us', { month: 'long' })
-  
+
     return (
       <Router>
         <div className="App" style={{minHeight: '100vh'}}>
@@ -289,7 +289,7 @@ class App extends Component {
                 <div className="route">
                   <SuggestTab {...prop} state={this.state}/>
                 </div>
-              )}/> 
+              )}/>
               <Route path="/top" exact render={(prop) => (
                 <div className="route">
                   <TopTab {...prop} state={this.state}/>

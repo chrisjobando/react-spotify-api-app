@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import Album from './Album';
 
-// npm Package that is capable of parsing query strings, such as ones in the URL 
+// npm Package that is capable of parsing query strings, such as ones in the URL
 import queryString from 'query-string';
 
 /**
@@ -33,7 +33,7 @@ class ArtistPage extends Component {
             artistTracks: '',
         }
     };
-  
+
     /**
      * @author: Christopher Obando
      * From: https://www.npmjs.com/package/query-string
@@ -94,7 +94,7 @@ class ArtistPage extends Component {
   /**
    * From: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
    * Method to turn track.duration_ms into minutes:seconds for display
-   * @param millis time in ms to convert to minutes and seconds 
+   * @param millis time in ms to convert to minutes and seconds
    */
   millisToMinutesAndSeconds(millis) {
     let minutes = Math.floor(millis / 60000);
@@ -143,7 +143,7 @@ class ArtistPage extends Component {
             <br/>
           </div>}
         {!this.state.artistTracks && <h1>Loading...</h1>}
-        {artist && this.state.artistTracks && 
+        {artist && this.state.artistTracks &&
           this.state.artistTracks.map((track, index) =>
             <div className="list">
                 <div key={track.id}>
@@ -180,19 +180,19 @@ class ArtistPage extends Component {
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
             {artist && this.state.artistAlbums && albumsToRender.length===0 && <h2>This artist does not have any albums</h2>}
-            {artist && this.state.artistAlbums && 
+            {artist && this.state.artistAlbums &&
               albumsToRender.map((album) => <Album current={this.props.state.playback.context} album={album} key={album.id}/>)}
             <h1>Singles and EPs</h1>
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
             {artist && this.state.artistAlbums && restToRender.length===0 && <h2>This artist does not have any singles/EPs</h2>}
-            {artist && this.state.artistAlbums && 
+            {artist && this.state.artistAlbums &&
               restToRender.map((album) =><Album current={this.props.state.playback.context} album={album} key={album.id}/>)}
             <h1>Featured on:</h1>
             <br/>
             {!this.state.artistAlbums && <h1>Loading...</h1>}
             {artist && this.state.artistAlbums && featuresToRender.length===0 && <h2>This artist is not featured on any tracks</h2>}
-            {artist && this.state.artistAlbums && 
+            {artist && this.state.artistAlbums &&
               featuresToRender.map((album) => <Album current={this.props.state.playback.context} album={album} key={album.id}/>)}
       </div>
     );

@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import Track from './Track';
 
-// npm Package that is capable of parsing query strings, such as ones in the URL 
+// npm Package that is capable of parsing query strings, such as ones in the URL
 import queryString from 'query-string';
 
 /**
@@ -163,7 +163,7 @@ class Search extends Component {
                                 <h3 className="playlist-name" style={{fontWeight: '500'}}>{playlist.name}</h3>}
                             {this.props.current && this.props.current.external_urls.spotify===playlist.external_urls.spotify &&
                                 <h3 className="playlist-name" style={{fontWeight: '500'}}><FontAwesome style={{marginRight: '5px'}} name="volume-up"/>{playlist.name}</h3>}
-                        </div>)}                    
+                        </div>)}
                 </div>}
         </div>
         );

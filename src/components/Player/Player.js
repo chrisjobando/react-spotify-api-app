@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome';
 // Styling
 import './Player.sass';
 
-// npm Package that is capable of parsing query strings, such as ones in the URL 
+// npm Package that is capable of parsing query strings, such as ones in the URL
 import queryString from 'query-string';
 
 /**

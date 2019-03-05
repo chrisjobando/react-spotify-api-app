@@ -4,7 +4,7 @@ import ToggleButton from './NavDrawer/ToggleButton';
 import '../styling/Navbar.sass';
 
  class Header extends Component {
-    render() {    
+    render() {
         return(
             <header className="navbar">
                 <nav className="navbar-nav">
